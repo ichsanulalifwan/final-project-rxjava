@@ -1,4 +1,4 @@
-package com.pajokka.manggala.maki.ui
+package com.pajokka.manggala.maki.ui.list
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

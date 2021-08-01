@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.pajokka.manggala.maki.DetailActivity
 import com.pajokka.manggala.maki.R
 import com.pajokka.manggala.maki.databinding.ItemNewsBinding
 import com.pajokka.manggala.maki.model.News
+import com.pajokka.manggala.maki.ui.detail.DetailActivity
 import com.pajokka.manggala.maki.utils.DataMapper
 import kotlin.collections.ArrayList
 

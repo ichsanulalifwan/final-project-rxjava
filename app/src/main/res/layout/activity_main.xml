@@ -33,7 +33,7 @@
         android:background="@color/blue_500"
         android:backgroundTint="@color/blue_500"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_camera"
+        android:src="@drawable/camera_selector"
         app:hideOnScroll="true"
         app:layout_anchor="@+id/navView"
         app:tint="@color/white" />

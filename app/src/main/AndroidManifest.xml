@@ -3,29 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pajokka.manggala.maki">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
-        android:usesCleartextTraffic="true"
+        android:supportsRtl="true"
         android:theme="@style/Theme.MakiProject"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="com.pajokka.manggala.maki.SignUpActivity"></activity>
-        <activity android:name="com.pajokka.manggala.maki.ui.signin.SignInActivity" />
-        <activity android:name="com.pajokka.manggala.maki.SplashScreen">
+        <activity
+            android:name="com.pajokka.manggala.maki.ui.splashscreen.SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.pajokka.manggala.maki.DetailActivity" />
+        <activity android:name="com.pajokka.manggala.maki.ui.signup.SignUpActivity" />
+        <activity android:name="com.pajokka.manggala.maki.ui.signin.SignInActivity" />
+        <activity android:name="com.pajokka.manggala.maki.ui.detail.DetailActivity" />
         <activity android:name="com.pajokka.manggala.maki.ui.lapor.ReportActivity" />
         <activity
-            android:name="com.pajokka.manggala.maki.MainActivity"
+            android:name="com.pajokka.manggala.maki.ui.MainActivity"
             android:label="@string/app_name" />
 
         <meta-data

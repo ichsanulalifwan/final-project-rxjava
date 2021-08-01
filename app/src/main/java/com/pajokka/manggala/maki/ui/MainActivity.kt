@@ -1,4 +1,4 @@
-package com.pajokka.manggala.maki
+package com.pajokka.manggala.maki.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.pajokka.manggala.maki.R
 import com.pajokka.manggala.maki.ui.lapor.ReportActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 

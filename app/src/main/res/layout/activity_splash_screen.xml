@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#155FCF"
-    tools:context=".SplashScreen">
+    android:background="@color/blue_500"
+    tools:context=".ui.splashscreen.SplashScreenActivity">
 
     <ImageView
         android:id="@+id/ic_logo"

@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_profil" />
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.pajokka.manggala.maki.ui.ListFragment"
+        android:name="com.pajokka.manggala.maki.ui.list.ListFragment"
         android:label="list_fragment"
         tools:layout="@layout/list_fragment" >
         <argument

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.pajokka.manggala.maki.R
+import com.pajokka.manggala.maki.databinding.FragmentProfilBinding
 import com.pajokka.manggala.maki.ui.signin.SignInActivity
 import com.pajokka.manggala.maki.utils.Preferences
 import kotlinx.android.synthetic.main.fragment_profil.*
@@ -20,15 +21,18 @@ class ProfilFragment : Fragment() {
     private lateinit var profilViewModel: ProfilViewModel
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var preferences: Preferences
+    private var _binding: FragmentProfilBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentProfilBinding.inflate(inflater, container, false)
         profilViewModel =
             ViewModelProvider(this).get(ProfilViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_profil, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,14 +46,10 @@ class ProfilFragment : Fragment() {
         t3.text = preferences.getValues("nama")
 
         if (preferences.getValues("type").equals("1")) {
-            /*t4.text = preferences.getValues("phone")*/
-
             btn_logout.setOnClickListener {
                 preferences.setValues("status", "0")
                 firebaseAuth.signOut()
                 checkUser()
-                /*activity?.finish()
-                startActivity(Intent(requireContext(), SignInActivity::class.java))*/
             }
         } else if (preferences.getValues("type").equals("2")) {
             val firebaseUser = firebaseAuth.currentUser
@@ -74,7 +74,12 @@ class ProfilFragment : Fragment() {
     private fun checkUser() {
         if (firebaseAuth.currentUser == null) {
             startActivity(Intent(context, SignInActivity::class.java))
-            activity?.finish()
+            activity?.finishAffinity()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

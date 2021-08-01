@@ -1,4 +1,4 @@
-package com.pajokka.manggala.maki
+package com.pajokka.manggala.maki.ui.detail
 
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +8,8 @@ import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.Glide
+import com.pajokka.manggala.maki.ui.MainActivity
+import com.pajokka.manggala.maki.R
 import com.pajokka.manggala.maki.model.Kkn
 import com.pajokka.manggala.maki.model.News
 import com.pajokka.manggala.maki.utils.DataMapper

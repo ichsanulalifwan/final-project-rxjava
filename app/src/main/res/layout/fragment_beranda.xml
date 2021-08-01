@@ -148,30 +148,115 @@
             android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="@id/cv_item_info"
-            app:layout_constraintTop_toBottomOf="@id/tv_news_header">
+            app:layout_constraintTop_toBottomOf="@id/cv_item_info">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <include layout="@layout/item_list_placeholder" />
+                    <TextView
+                        android:id="@+id/tv_news_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/kegiatan_kecamatan"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <include layout="@layout/item_list_placeholder" />
+                    <TextView
+                        android:id="@+id/text_all_news_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/lainnya"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_news_placeholder"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_news_placeholder" />
 
-                    <include layout="@layout/item_list_placeholder" />
+                    <LinearLayout
+                        android:id="@+id/linear"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_news_placeholder">
 
-                    <include layout="@layout/item_list_placeholder" />
-                </LinearLayout>
+                        <include layout="@layout/item_news_placeholder" />
+
+                        <include layout="@layout/item_news_placeholder" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_kkn_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/kegiatan_kecamatan"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear" />
+
+                    <TextView
+                        android:id="@+id/text_all_kkn_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/lainnya"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_kkn_placeholder"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_kkn_placeholder" />
+
+                    <LinearLayout
+                        android:id="@+id/linear2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_kkn_placeholder">
+
+                        <include layout="@layout/item_list_placeholder" />
+
+                        <include layout="@layout/item_list_placeholder" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </ScrollView>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

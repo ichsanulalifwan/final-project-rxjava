@@ -15,9 +15,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
-import com.pajokka.manggala.maki.MainActivity
+import com.pajokka.manggala.maki.ui.MainActivity
 import com.pajokka.manggala.maki.R
-import com.pajokka.manggala.maki.SignUpActivity
+import com.pajokka.manggala.maki.ui.signup.SignUpActivity
 import com.pajokka.manggala.maki.model.User
 import com.pajokka.manggala.maki.utils.Preferences
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -28,8 +28,6 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var iEmail: String
-    private lateinit var iPassword: String
     private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +70,8 @@ class SignInActivity : AppCompatActivity() {
         }
 
         btn_home.setOnClickListener {
-            iEmail = et_username.text.toString()
-            iPassword = et_password.text.toString()
+            val iEmail = et_username.text.toString()
+            val iPassword = et_password.text.toString()
 
             progressBar.visibility = View.VISIBLE
 
@@ -152,11 +150,15 @@ class SignInActivity : AppCompatActivity() {
                 preferences.setValues("type", "2")
 
                 if (authResult.additionalUserInfo!!.isNewUser) {
-                    Toast.makeText(this@SignInActivity, "Selamat Datang", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@SignInActivity,
+                        "Selamat Datang $userName",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     Toast.makeText(
                         this@SignInActivity,
-                        "Selamat Datang Kembali",
+                        "Selamat Datang Kembali $userName",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

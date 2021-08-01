@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.pajokka.manggala.maki.R
 import com.pajokka.manggala.maki.model.Report
 import com.pajokka.manggala.maki.utils.Preferences
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class ReportActivity : AppCompatActivity(), CoroutineScope {
 
@@ -35,31 +37,54 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
 
-        val data = intent.getParcelableExtra<Uri>("URI")
+        val dataUri = intent.getParcelableExtra<Uri>("URI")
 
         preferences = Preferences(this)
 
         Glide.with(this)
             .asBitmap()
-            .load(data)
+            .load(dataUri)
             .into(img_report)
 
         kirim.setOnClickListener {
             pb_send_report.visibility = View.VISIBLE
-            uploadImageToFirebaseStorage(data)
-        }
+            val title = input_title_edt.text.toString()
+            val phoneNumber = input_phone_edt.text.toString()
+            val desc = edReview.text.toString()
 
+            if (title.isEmpty() || title == "") {
+                input_title_edt.error = "Silakan isi judul laporan"
+                input_title_edt.requestFocus()
+                pb_send_report.visibility = View.GONE
+            } else if (phoneNumber.isEmpty() || phoneNumber == "") {
+                input_phone_edt.error = "Silakan tambahkan nomor telepon anda"
+                input_phone_edt.requestFocus()
+                pb_send_report.visibility = View.GONE
+            } else if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+                input_phone_edt.error = "Format nomor telepon anda salah"
+                input_phone_edt.requestFocus()
+                pb_send_report.visibility = View.GONE
+            } else if (desc.isEmpty() || desc == "") {
+                edReview.error = "Silakan tambahkan deskripsi laporan"
+                edReview.requestFocus()
+                pb_send_report.visibility = View.GONE
+            } else {
+                uploadImageToFirebaseStorage(title, phoneNumber, desc, dataUri)
+            }
+        }
         whenClickingRetakeButton()
         whenClickingCancelButton()
     }
 
-    private fun uploadImageToFirebaseStorage(uri: Uri?) {
-        val nama = input_title_edt.text.toString()
-        val deskripsi = edReview.text.toString()
+    private fun uploadImageToFirebaseStorage(
+        titel: String,
+        phoneNumber: String,
+        description: String,
+        uri: Uri?
+    ) {
         val uploadTime = System.currentTimeMillis()
         val userName = preferences.getValues("nama")
         val filename = UUID.randomUUID().toString()
-        val phoneNumber = input_phone_edt.text.toString()
 
         val ref = FirebaseStorage.getInstance().getReference("/report-images/$filename")
         val mDatabase = FirebaseDatabase.getInstance().getReference("/reports")
@@ -70,19 +95,24 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
                     ref.downloadUrl
                         .addOnSuccessListener {
                             url = it.toString()
-                            val report = Report(nama, deskripsi, url, userName, uploadTime, phoneNumber)
+                            val report =
+                                Report(titel, description, url, userName, uploadTime, phoneNumber)
                             mDatabase.push().setValue(report)
                             finish()
                             pb_send_report.visibility = View.GONE
                             Toast.makeText(
                                 this@ReportActivity,
-                                "Laporan berhasil ditambahkan",
+                                "Laporan berhasil dikirimkan",
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
                         }
                         .addOnFailureListener {
-                            Toast.makeText(this@ReportActivity, "Gagal upload!", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this@ReportActivity,
+                                "Gagal mengirimkan laporan!",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                 }

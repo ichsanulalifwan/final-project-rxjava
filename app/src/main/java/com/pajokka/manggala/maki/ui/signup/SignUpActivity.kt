@@ -1,4 +1,4 @@
-package com.pajokka.manggala.maki
+package com.pajokka.manggala.maki.ui.signup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.pajokka.manggala.maki.ui.MainActivity
+import com.pajokka.manggala.maki.R
 import com.pajokka.manggala.maki.model.User
 import com.pajokka.manggala.maki.ui.signin.SignInActivity
 import com.pajokka.manggala.maki.utils.Preferences
@@ -26,9 +28,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mDatabase: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var preferences: Preferences
-    private lateinit var sEmail: String
-    private lateinit var sPassword: String
-    private lateinit var sNama: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -43,9 +43,9 @@ class SignUpActivity : AppCompatActivity() {
 
         btn_home.setOnClickListener {
             progressBar.visibility = View.VISIBLE
-            sEmail = et_email.text.toString()
-            sPassword = et_password.text.toString()
-            sNama = et_nama.text.toString()
+            val sNama = et_nama.text.toString()
+            val sEmail = et_email.text.toString()
+            val sPassword = et_password.text.toString()
 
             if (sNama.isEmpty() || sNama == "") {
                 et_nama.error = "Silakan isi nama anda"
@@ -57,6 +57,7 @@ class SignUpActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
             } else if (!Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()) {
                 et_email.error = "Format email anda salah"
+                et_email.requestFocus()
                 progressBar.visibility = View.GONE
             } else if (sPassword.isEmpty() || sPassword == "") {
                 et_password.error = "Silakan isi kata sandi anda"
@@ -101,6 +102,7 @@ class SignUpActivity : AppCompatActivity() {
                     startActivity(intent)
                     Toast.makeText(this@SignUpActivity, "Selamat Datang $sNama", Toast.LENGTH_SHORT).show()
                     progressBar.visibility = View.GONE
+                    finishAffinity()
                 } else {
                     Toast.makeText(this@SignUpActivity, "Registrasi akun gagal", Toast.LENGTH_LONG)
                         .show()

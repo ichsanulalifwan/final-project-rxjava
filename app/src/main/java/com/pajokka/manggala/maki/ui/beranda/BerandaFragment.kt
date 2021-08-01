@@ -25,12 +25,11 @@ class BerandaFragment : Fragment() {
 
     private lateinit var berandaViewModel: BerandaViewModel
     private lateinit var newsAdapter: DataAdapter
+    private lateinit var mDatabase: DatabaseReference
+    private lateinit var kknAdapter: KknAdapter
     private var _binding: FragmentBerandaBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var mDatabase: DatabaseReference
     private var dataList = ArrayList<Kkn>()
-    private lateinit var kknAdapter: KknAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -125,11 +124,15 @@ class BerandaFragment : Fragment() {
             if (isLoading) {
                 progressBar.visibility = View.VISIBLE
                 rv_kkn_report.visibility = View.GONE
+                tv_news_header.visibility = View.GONE
+                text_all_news.visibility = View.GONE
                 tv_kkn_header.visibility = View.GONE
                 text_all_kkn.visibility = View.GONE
             } else {
                 progressBar.visibility = View.GONE
                 rv_kkn_report.visibility = View.VISIBLE
+                tv_news_header.visibility = View.VISIBLE
+                text_all_news.visibility = View.VISIBLE
                 tv_kkn_header.visibility = View.VISIBLE
                 text_all_kkn.visibility = View.VISIBLE
             }

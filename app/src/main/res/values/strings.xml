@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">Maki</string>
-
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="see_all">See All</string>
     <string name="title_beranda">Beranda</string>
     <string name="title_lapor">Lapor</string>
     <string name="title_profil">Profil</string>
-
     <string name="dummy_password">******</string>
     <string name="dummy_email">johndoe@gmail.com</string>
     <string name="dummy_fullname">John Doe</string>
@@ -74,7 +72,6 @@
     <string name="kebakaran">Kebakaran</string>
     <string name="pohon_tumbang">Pohon\nTumbang</string>
     <string name="kabar_terbaru">Kabar Terbaru</string>
-    <string name="coba"><p>akwoakwoaka bbbbbbbbb cccccccccc ddddddddd eeeeeeeeeee ffffffffff ggggggggggg hhhhhhhhhh iiiiiiiii jjjjjjjjj kkkkkkk lllllll mmmmmmmmmm nnnnnnnnnnn ooooooo</p>\n\n<p>kedua</p>\n\n<p>ketiga</p>\n\n<p>keempat</p>\n\n<p><strong>bold</strong></p>\n\n<p><em>italic</em></p>\n</string>
     <string name="nama">Nama</string>
     <string name="username">NIK</string>
     <string name="logout">Keluar</string>
@@ -86,8 +83,6 @@
     <string name="belum_memiliki_akun">Belum memiliki akun?</string>
     <string name="text_primary">Serahkan </string>
     <string name="kecamatan">Manggala</string>
-    <string name="kegiatan_kecamatan">Info Kegiatan Kecamatan</string>
+    <string name="kegiatan_kecamatan">Info Kegiatan Manggala</string>
     <string name="lingkungan_kecamatan">di Lingkungan Kecamatan Manggala</string>
-
-
 </resources>
