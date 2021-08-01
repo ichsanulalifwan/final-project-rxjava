@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/sign_in"
+        android:textAlignment="center"
+        android:textColor="@color/black_700"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_signin_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins"
+        android:text="Aplikasi Layanan Masyarakat"
+        android:textAllCaps="false"
+        android:textColor="@color/black_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/text_signin_header2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/lingkungan_kecamatan"
+        android:textAllCaps="false"
+        android:textColor="@color/black_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_signin_header" />
+
+
+    <TextView
+        android:id="@+id/tv_hello"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/email"
+        android:textColor="@color/black_700"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_signin_header2" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_rounded_edittext"
+        android:ems="10"
+        android:fontFamily="@font/poppins_light"
+        android:hint="@string/input_email_text"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:paddingStart="16dp"
+        android:textColor="@color/grey_500"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hello" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/password"
+        android:textColor="@color/black_700"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_username" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_rounded_edittext"
+        android:ems="10"
+        android:fontFamily="@font/poppins_light"
+        android:hint="@string/input_sandi_text"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:paddingStart="16dp"
+        android:textColor="@color/black_700"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_rectangle_blue"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_medium"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/sign_in"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_password" />
+
+    <View
+        android:id="@+id/divider_image"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/grey"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_divider"
+        app:layout_constraintEnd_toStartOf="@id/tv_divider"
+        app:layout_constraintStart_toStartOf="@id/btn_home"
+        app:layout_constraintTop_toTopOf="@id/tv_divider" />
+
+    <TextView
+        android:id="@+id/tv_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/atau"
+        android:textAllCaps="false"
+        android:textColor="@color/grey"
+        app:layout_constraintEnd_toEndOf="@id/btn_home"
+        app:layout_constraintStart_toStartOf="@+id/btn_home"
+        app:layout_constraintTop_toBottomOf="@id/btn_home" />
+
+    <View
+        android:id="@+id/divider_image2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/grey"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_divider"
+        app:layout_constraintEnd_toEndOf="@id/btn_home"
+        app:layout_constraintStart_toEndOf="@id/tv_divider"
+        app:layout_constraintTop_toTopOf="@id/tv_divider" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_googleSignIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="@string/signin_google_text"
+        android:textAllCaps="false"
+        android:textColor="@color/blue_400"
+        android:textSize="12sp"
+        app:elevation="0dp"
+        app:icon="@drawable/ic_google_logo"
+        app:iconGravity="textStart"
+        app:iconTint="@null"
+        app:layout_constraintEnd_toEndOf="@id/btn_home"
+        app:layout_constraintStart_toStartOf="@id/btn_home"
+        app:layout_constraintTop_toBottomOf="@id/tv_divider"
+        app:strokeColor="@color/blue_400"
+        app:strokeWidth="1dp" />
+
+    <TextView
+        android:id="@+id/tv_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/belum_memiliki_akun"
+        android:textAllCaps="false"
+        android:textColor="@color/black_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_home"
+        app:layout_constraintStart_toStartOf="@+id/btn_home" />
+
+    <TextView
+        android:id="@+id/btn_daftar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/sign_up"
+        android:textAllCaps="false"
+        android:textColor="@color/blue_500"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sign_up"
+        app:layout_constraintStart_toEndOf="@id/tv_sign_up"
+        app:layout_constraintTop_toTopOf="@id/tv_sign_up" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
