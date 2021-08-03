@@ -44,24 +44,30 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressBar.visibility = View.VISIBLE
+        if (activity != null) {
+            binding.listShimmer.visibility = View.VISIBLE
 
-        val category = args.type
+            val category = args.type
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Entry")
+            mDatabase = FirebaseDatabase.getInstance().getReference("Entry")
 
-        if (category == 1) {
-            newsAdapter = ListAdapter()
-            setupNewsRecyclerView()
-            setNews()
-        } else if (category == 2) {
-            kknListAdapter = KknListAdapter()
-            setupKknRecyclerView()
-            getData()
-        } else Toast.makeText(context, "Terdapat Error", Toast.LENGTH_SHORT).show()
+            when (category) {
+                1 -> {
+                    newsAdapter = ListAdapter()
+                    setupNewsRecyclerView()
+                    setNews()
+                }
+                2 -> {
+                    kknListAdapter = KknListAdapter()
+                    setupKknRecyclerView()
+                    getData()
+                }
+                else -> Toast.makeText(context, "Terdapat Error", Toast.LENGTH_SHORT).show()
+            }
 
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack()
+            binding.ivBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 
@@ -85,7 +91,7 @@ class ListFragment : Fragment() {
         berandaViewModel.getLatestNews().observe(viewLifecycleOwner, {
             val newsList = DataMapper.mapResponseToModel(it)
             newsAdapter.setData(newsList as ArrayList<News>)
-            binding.progressBar.visibility = View.GONE
+            binding.listShimmer.visibility = View.GONE
         })
     }
 
@@ -97,7 +103,7 @@ class ListFragment : Fragment() {
                     val data = getdataSnapshot.getValue(Kkn::class.java)
                     dataList.add(data!!)
                     kknListAdapter.setData(dataList)
-                    binding.progressBar.visibility = View.GONE
+                    binding.listShimmer.visibility = View.GONE
                 }
 
                 Log.d(context.toString(), "Ini mi: $dataList")

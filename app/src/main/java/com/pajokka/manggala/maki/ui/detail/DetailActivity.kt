@@ -17,11 +17,6 @@ import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
-    companion object {
-        const val EXTRA_KKN = "EXTRA_KKN"
-        const val EXTRA_NEWS = "EXTRA_NEWS"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
@@ -51,6 +46,8 @@ class DetailActivity : AppCompatActivity() {
 
         Glide.with(this@DetailActivity)
             .load(dataKkn.imageUrl)
+            .centerCrop()
+            .placeholder(R.drawable.image_load)
             .into(img_report)
     }
 
@@ -66,7 +63,13 @@ class DetailActivity : AppCompatActivity() {
 
         Glide.with(this@DetailActivity)
             .load(dataNews.image)
+            .centerCrop()
             .placeholder(R.drawable.image_load)
             .into(img_report)
+    }
+
+    companion object {
+        const val EXTRA_KKN = "EXTRA_KKN"
+        const val EXTRA_NEWS = "EXTRA_NEWS"
     }
 }

@@ -122,7 +122,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/shape_rectangle_blue"
+        android:background="@drawable/shape_rectangle_red"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/poppins_medium"
@@ -186,16 +186,17 @@
         android:gravity="center"
         android:text="@string/signin_google_text"
         android:textAllCaps="false"
-        android:textColor="@color/blue_400"
+        android:textColor="@color/red_app"
         android:textSize="12sp"
         app:elevation="0dp"
+        app:fabSize="normal"
         app:icon="@drawable/ic_google_logo"
         app:iconGravity="textStart"
         app:iconTint="@null"
         app:layout_constraintEnd_toEndOf="@id/btn_home"
         app:layout_constraintStart_toStartOf="@id/btn_home"
         app:layout_constraintTop_toBottomOf="@id/tv_divider"
-        app:strokeColor="@color/blue_400"
+        app:strokeColor="@color/red_app"
         app:strokeWidth="1dp" />
 
     <TextView
@@ -223,7 +224,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:text="@string/sign_up"
         android:textAllCaps="false"
-        android:textColor="@color/blue_500"
+        android:textColor="@color/red_app"
         app:layout_constraintBottom_toBottomOf="@id/tv_sign_up"
         app:layout_constraintStart_toEndOf="@id/tv_sign_up"
         app:layout_constraintTop_toTopOf="@id/tv_sign_up" />

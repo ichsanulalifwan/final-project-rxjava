@@ -25,7 +25,7 @@ class LaporFragment : Fragment() {
                 ViewModelProvider(this).get(LaporViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_lapor, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        laporViewModel.text.observe(viewLifecycleOwner, Observer {
+        laporViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
         return root
@@ -36,8 +36,7 @@ class LaporFragment : Fragment() {
 
         //ini loh
         send.setOnClickListener {
-            FirebaseDatabase.getInstance().getReference("Reports").child("Mahasiswa").push().setValue("Ridhoi")
+            FirebaseDatabase.getInstance().getReference("Reports").child("Mahasiswa").push().setValue("Ichsan")
         }
     }
-
 }

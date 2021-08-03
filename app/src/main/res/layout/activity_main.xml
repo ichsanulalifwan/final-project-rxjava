@@ -30,8 +30,6 @@
         android:id="@+id/floating_button_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/blue_500"
-        android:backgroundTint="@color/blue_500"
         android:contentDescription="@string/app_name"
         android:src="@drawable/camera_selector"
         app:hideOnScroll="true"

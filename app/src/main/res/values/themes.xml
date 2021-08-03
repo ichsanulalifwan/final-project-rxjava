@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.MakiProject" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue_500</item>
-        <item name="colorPrimaryVariant">@color/blue_500</item>
+        <item name="colorPrimary">@color/red_app</item>
+        <item name="colorPrimaryVariant">@color/red_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/blue_500</item>
-        <item name="colorSecondaryVariant">@color/dark_blue</item>
+        <item name="colorSecondary">@color/red_app</item>
+        <item name="colorSecondaryVariant">@color/red_700</item>
         <item name="colorOnSecondary">@color/black_700</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

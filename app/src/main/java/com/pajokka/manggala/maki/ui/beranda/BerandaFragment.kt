@@ -19,14 +19,13 @@ import com.pajokka.manggala.maki.model.News
 import com.pajokka.manggala.maki.ui.adapter.DataAdapter
 import com.pajokka.manggala.maki.ui.adapter.KknAdapter
 import com.pajokka.manggala.maki.utils.DataMapper
-import kotlinx.android.synthetic.main.fragment_beranda.*
 
 class BerandaFragment : Fragment() {
 
     private lateinit var berandaViewModel: BerandaViewModel
     private lateinit var newsAdapter: DataAdapter
-    private lateinit var mDatabase: DatabaseReference
     private lateinit var kknAdapter: KknAdapter
+    private lateinit var mDatabase: DatabaseReference
     private var _binding: FragmentBerandaBinding? = null
     private val binding get() = _binding!!
     private var dataList = ArrayList<Kkn>()
@@ -57,23 +56,32 @@ class BerandaFragment : Fragment() {
             setupNewsRecyclerView()
             setupKknRecyclerView()
 
-            cv_item_info.setOnClickListener {
-                val urlIntent = Intent(Intent.ACTION_VIEW)
-                urlIntent.data = Uri.parse("https://makassarkota.go.id/makassar-recover/")
-                startActivity(urlIntent)
-            }
-
-            text_all_news.setOnClickListener {
-                val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(1)
-                action.let {
-                    findNavController().navigate(it)
+            with(binding) {
+                cvItemInfo.setOnClickListener {
+                    val urlIntent = Intent(Intent.ACTION_VIEW)
+                    urlIntent.data = Uri.parse("https://makassarkota.go.id/makassar-recover/")
+                    startActivity(urlIntent)
                 }
-            }
 
-            text_all_kkn.setOnClickListener {
-                val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(2)
-                action.let {
-                    findNavController().navigate(it)
+                textAllNews.setOnClickListener {
+                    val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(1)
+                    action.let {
+                        findNavController().navigate(it)
+                    }
+                }
+
+                textAllKkn.setOnClickListener {
+                    val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(2)
+                    action.let {
+                        findNavController().navigate(it)
+                    }
+                }
+
+                btnKkn.setOnClickListener {
+                    val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(2)
+                    action.let {
+                        findNavController().navigate(it)
+                    }
                 }
             }
         }
@@ -103,9 +111,15 @@ class BerandaFragment : Fragment() {
                     val data = getdataSnapshot.getValue(Kkn::class.java)
                     dataList.add(data!!)
                     kknAdapter.setData(dataList)
+
+                    if (dataList.size <= 3 ) {
+                        binding.btnKkn.visibility = View.GONE
+                    } else {
+                        binding.btnKkn.visibility = View.VISIBLE
+                    }
                 }
 
-                Log.d(context.toString(), "Ini mi: $dataList")
+                Log.d(context.toString(), "Data : $dataList")
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -122,19 +136,25 @@ class BerandaFragment : Fragment() {
 
         berandaViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                progressBar.visibility = View.VISIBLE
-                rv_kkn_report.visibility = View.GONE
-                tv_news_header.visibility = View.GONE
-                text_all_news.visibility = View.GONE
-                tv_kkn_header.visibility = View.GONE
-                text_all_kkn.visibility = View.GONE
+                binding.apply {
+                    homeShimmer.visibility = View.VISIBLE
+                    rvKknReport.visibility = View.GONE
+                    tvNewsHeader.visibility = View.GONE
+                    textAllNews.visibility = View.GONE
+                    tvKknHeader.visibility = View.GONE
+                    textAllKkn.visibility = View.GONE
+                    btnKkn.visibility = View.GONE
+                }
             } else {
-                progressBar.visibility = View.GONE
-                rv_kkn_report.visibility = View.VISIBLE
-                tv_news_header.visibility = View.VISIBLE
-                text_all_news.visibility = View.VISIBLE
-                tv_kkn_header.visibility = View.VISIBLE
-                text_all_kkn.visibility = View.VISIBLE
+                binding.apply {
+                    homeShimmer.visibility = View.GONE
+                    rvKknReport.visibility = View.VISIBLE
+                    tvNewsHeader.visibility = View.VISIBLE
+                    textAllNews.visibility = View.VISIBLE
+                    tvKknHeader.visibility = View.VISIBLE
+                    textAllKkn.visibility = View.VISIBLE
+                    btnKkn.visibility = View.VISIBLE
+                }
             }
         }
     }

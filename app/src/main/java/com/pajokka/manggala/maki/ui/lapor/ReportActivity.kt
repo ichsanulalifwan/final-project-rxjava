@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.coroutines.*
 import java.util.*
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.coroutines.CoroutineContext
 import com.google.firebase.storage.FirebaseStorage
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 class ReportActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var preferences: Preferences
+    private lateinit var firebaseAuth: FirebaseAuth
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -40,6 +42,7 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
         val dataUri = intent.getParcelableExtra<Uri>("URI")
 
         preferences = Preferences(this)
+        firebaseAuth = FirebaseAuth.getInstance()
 
         Glide.with(this)
             .asBitmap()
@@ -86,6 +89,7 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
         val userName = preferences.getValues("nama")
         val filename = UUID.randomUUID().toString()
 
+        val userId = firebaseAuth.currentUser?.uid
         val ref = FirebaseStorage.getInstance().getReference("/report-images/$filename")
         val mDatabase = FirebaseDatabase.getInstance().getReference("/reports")
 
@@ -97,7 +101,9 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
                             url = it.toString()
                             val report =
                                 Report(titel, description, url, userName, uploadTime, phoneNumber)
-                            mDatabase.push().setValue(report)
+                            if (userId != null) {
+                                mDatabase.child(userId).push().setValue(report)
+                            }
                             finish()
                             pb_send_report.visibility = View.GONE
                             Toast.makeText(

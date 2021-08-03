@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_img"
