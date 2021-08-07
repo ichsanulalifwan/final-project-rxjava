@@ -50,7 +50,7 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/shape_rectangle_grey"
         android:fontFamily="@font/poppins_light"
-        android:text="Senin, 19 Juli 2021"
+        android:text="@string/placeholder_date"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="#00000000"
         android:textSize="12sp"

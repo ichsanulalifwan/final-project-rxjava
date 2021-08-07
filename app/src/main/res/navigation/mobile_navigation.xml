@@ -16,12 +16,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_lapor"
-        android:name="com.pajokka.manggala.maki.ui.lapor.LaporFragment"
-        android:label="@string/title_lapor"
-        tools:layout="@layout/fragment_lapor" />
-
-    <fragment
         android:id="@+id/navigation_profil"
         android:name="com.pajokka.manggala.maki.ui.profil.ProfilFragment"
         android:label="@string/title_profil"

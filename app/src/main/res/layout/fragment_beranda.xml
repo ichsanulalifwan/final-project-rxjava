@@ -14,7 +14,7 @@
             android:id="@+id/ic_category"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_category"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/kecamatan"
+            android:text="@string/kota"
             android:textColor="@color/black_700"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/ic_category"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins"
-            android:text="Berita Kesehatan Terkini"
+            android:text="@string/news_header"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -112,27 +112,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/kegiatan_kecamatan"
+            android:text="@string/kegiatan_kelurahan"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/cv_item_info"
             app:layout_constraintTop_toBottomOf="@id/rv_news" />
-
-        <TextView
-            android:id="@+id/text_all_kkn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/poppins"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:text="@string/lainnya"
-            android:textColor="@color/red_app"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/cv_item_info"
-            app:layout_constraintTop_toBottomOf="@id/rv_news"
-            app:layout_constraintTop_toTopOf="@id/tv_kkn_header" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_kkn_report"
@@ -156,10 +141,11 @@
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Baca Selengkapnya"
+            android:text="@string/btn_text"
             android:textAllCaps="false"
             android:textColor="@color/red_app"
             android:textSize="12sp"
+            app:borderWidth="0dp"
             app:elevation="0dp"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -180,7 +166,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:ignore="NestedScrolling">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -193,7 +180,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/shape_rectangle_grey"
                         android:fontFamily="@font/poppins"
-                        android:text="@string/kegiatan_kecamatan"
+                        android:text="@string/kegiatan_kelurahan"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                         android:textColor="#00000000"
                         android:textSize="14sp"
@@ -241,28 +228,13 @@
                         android:layout_marginTop="24dp"
                         android:background="@drawable/shape_rectangle_grey"
                         android:fontFamily="@font/poppins"
-                        android:text="@string/kegiatan_kecamatan"
+                        android:text="@string/kegiatan_kelurahan"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                         android:textColor="#00000000"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear" />
-
-                    <TextView
-                        android:id="@+id/text_all_kkn_placeholder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/shape_rectangle_grey"
-                        android:fontFamily="@font/poppins"
-                        android:text="@string/lainnya"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="#00000000"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_kkn_placeholder"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_kkn_placeholder" />
 
                     <LinearLayout
                         android:id="@+id/linear2"

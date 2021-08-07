@@ -27,11 +27,9 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var preferences: Preferences
     private lateinit var firebaseAuth: FirebaseAuth
-
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default
-
     private var url = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {

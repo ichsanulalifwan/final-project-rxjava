@@ -70,13 +70,6 @@ class BerandaFragment : Fragment() {
                     }
                 }
 
-                textAllKkn.setOnClickListener {
-                    val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(2)
-                    action.let {
-                        findNavController().navigate(it)
-                    }
-                }
-
                 btnKkn.setOnClickListener {
                     val action = BerandaFragmentDirections.actionNavigationBerandaToListFragment(2)
                     action.let {
@@ -111,14 +104,8 @@ class BerandaFragment : Fragment() {
                     val data = getdataSnapshot.getValue(Kkn::class.java)
                     dataList.add(data!!)
                     kknAdapter.setData(dataList)
-
-                    if (dataList.size <= 3 ) {
-                        binding.btnKkn.visibility = View.GONE
-                    } else {
-                        binding.btnKkn.visibility = View.VISIBLE
-                    }
+                    checkDataKkn()
                 }
-
                 Log.d(context.toString(), "Data : $dataList")
             }
 
@@ -142,7 +129,6 @@ class BerandaFragment : Fragment() {
                     tvNewsHeader.visibility = View.GONE
                     textAllNews.visibility = View.GONE
                     tvKknHeader.visibility = View.GONE
-                    textAllKkn.visibility = View.GONE
                     btnKkn.visibility = View.GONE
                 }
             } else {
@@ -152,10 +138,18 @@ class BerandaFragment : Fragment() {
                     tvNewsHeader.visibility = View.VISIBLE
                     textAllNews.visibility = View.VISIBLE
                     tvKknHeader.visibility = View.VISIBLE
-                    textAllKkn.visibility = View.VISIBLE
                     btnKkn.visibility = View.VISIBLE
+                    checkDataKkn()
                 }
             }
+        }
+    }
+
+    private fun checkDataKkn() {
+        if (dataList.size <= 3 ) {
+            binding.btnKkn.visibility = View.GONE
+        } else {
+            binding.btnKkn.visibility = View.VISIBLE
         }
     }
 

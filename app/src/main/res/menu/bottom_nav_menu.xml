@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_lapor"
-        android:title="Lapor" />
+        android:title="@string/lapor" />
 
     <item
         android:id="@+id/navigation_profil"

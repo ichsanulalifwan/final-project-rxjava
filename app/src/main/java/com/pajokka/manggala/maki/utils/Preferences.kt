@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class Preferences(val context: Context) {
+
     companion object {
         const val MEETING_PREF = "USER_PREF"
     }
@@ -19,6 +20,5 @@ class Preferences(val context: Context) {
     fun getValues(key: String): String? {
         return sharedPref.getString(key, null)
     }
-
 }
 

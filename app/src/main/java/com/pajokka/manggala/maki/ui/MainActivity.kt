@@ -63,6 +63,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Toast.makeText(this, "Te", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show()
     }
 }

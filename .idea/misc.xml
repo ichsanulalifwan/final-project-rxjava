@@ -17,16 +17,16 @@
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/drawable/shape_rectangle_blue.xml" value="0.1648148148148148" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/drawable/shape_rectangle_red.xml" value="0.1648148148148148" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/drawable/shape_rounded_edittext.xml" value="0.2526041666666667" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_detail.xml" value="0.26884422110552764" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_main.xml" value="0.47789473684210526" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_report.xml" value="0.4" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_sign_in.xml" value="0.3316582914572864" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_report.xml" value="0.1" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/activity_splash_screen.xml" value="0.176" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/fragment_beranda.xml" value="0.264" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/fragment_lapor.xml" value="0.23645833333333333" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/fragment_profil.xml" value="0.264" />
-        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/item_kkn.xml" value="0.264" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/fragment_profil.xml" value="0.1" />
+        <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/item_kkn.xml" value="0.1" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/item_list_placeholder.xml" value="0.264" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/item_news.xml" value="0.15443840579710144" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/layout/item_news_placeholder.xml" value="0.4" />
