@@ -27,7 +27,7 @@
         <activity android:name="com.pajokka.manggala.maki.ui.signup.SignUpActivity" />
         <activity android:name="com.pajokka.manggala.maki.ui.signin.SignInActivity" />
         <activity android:name="com.pajokka.manggala.maki.ui.detail.DetailActivity" />
-        <activity android:name="com.pajokka.manggala.maki.ui.lapor.ReportActivity" />
+        <activity android:name="com.pajokka.manggala.maki.ui.report.ReportActivity" />
         <activity
             android:name="com.pajokka.manggala.maki.ui.MainActivity"
             android:label="@string/app_name" />

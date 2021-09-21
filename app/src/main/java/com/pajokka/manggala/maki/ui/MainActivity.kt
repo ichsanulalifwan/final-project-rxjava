@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.pajokka.manggala.maki.R
-import com.pajokka.manggala.maki.ui.lapor.ReportActivity
+import com.pajokka.manggala.maki.ui.report.ReportActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext

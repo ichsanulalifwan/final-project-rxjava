@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pajokka.manggala.maki.BuildConfig
 import com.pajokka.manggala.maki.model.ArticlesItem
 import com.pajokka.manggala.maki.model.NewsResponse
 import com.pajokka.manggala.maki.network.ApiConfig
@@ -43,7 +44,7 @@ class BerandaViewModel : ViewModel() {
     }
 
     companion object {
-        private const val API_KEY = "740e3eddb8ef49b6928ed8ab0d189322"
+        private const val API_KEY = BuildConfig.API_KEY
         private const val TAG = "BerandaViewModel"
     }
 }
