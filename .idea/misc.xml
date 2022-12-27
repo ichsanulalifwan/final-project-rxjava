@@ -34,6 +34,13 @@
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23645833333333333" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2526041666666667" />
         <entry key="..\:/_Matkul/_KKN/MAKI Project/Android/MakiApp-main/MakiApp-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2526041666666667" />
+        <entry key="app/src/main/res/drawable/camera_selector.xml" value="0.1165" />
+        <entry key="app/src/main/res/drawable/home_selector.xml" value="0.1165" />
+        <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.1165" />
+        <entry key="app/src/main/res/drawable/shape_rectangle_grey.xml" value="0.157" />
+        <entry key="app/src/main/res/layout/fragment_beranda.xml" value="0.3344580078125" />
+        <entry key="app/src/main/res/layout/item_news_placeholder.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.10520833333333333" />
       </map>
     </option>
   </component>
