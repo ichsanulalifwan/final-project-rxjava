@@ -1,19 +1,18 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.pajokka.manggala.maki"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -41,8 +40,7 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // APIs\
     implementation "androidx.core:core-ktx:$core_version"
 
     // UI

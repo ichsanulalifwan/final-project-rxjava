@@ -8,9 +8,9 @@ buildscript {
         core_version = '1.6.0'
 
         // UI
-        appcompat_version = '1.3.1'
+        appcompat_version = '1.5.1'
         material_version = '1.4.0'
-        constraintlayout_version = '2.1.0'
+        constraintlayout_version = '2.1.4'
         recyclerview_version = '1.2.1'
         glide_version = '4.12.0'
         circleimageview_version = '3.1.0'
@@ -24,7 +24,7 @@ buildscript {
         lifecycle_version = '2.3.1'
 
         // Navigation
-        navigation_version = '2.3.5'
+        navigation_version = '2.5.3'
 
         // Networking
         retrofit2_version = '2.9.0'
@@ -34,36 +34,24 @@ buildscript {
         imagepicker_version = '2.1'
 
         // Google Play services library
-        googleplay_version = '19.2.0'
+        googleplay_version = '20.4.0'
 
         // testing
         junit_version = '4.13.2'
-        junit_ext_version = '1.1.3'
-        espresso_version = '3.4.0'
+        junit_ext_version = '1.1.4'
+        espresso_version = '3.5.0'
     }
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5'
-        classpath 'com.google.gms:google-services:4.3.8'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
+        classpath 'com.google.gms:google-services:4.3.14'
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url "https://jitpack.io"
-        }
-    }
+plugins {
+    id 'com.android.application' version '7.2.1' apply false
+    id 'com.android.library' version '7.2.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
 }
 
 task clean(type: Delete) {
