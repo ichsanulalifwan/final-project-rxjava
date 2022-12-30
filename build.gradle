@@ -3,16 +3,15 @@ buildscript {
     ext {
         //dependencies version
 
-        // Kotlin
-        kotlin_version = '1.5.20'
-        core_version = '1.6.0'
+        // APIs
+        core_version = '1.9.0'
 
         // UI
         appcompat_version = '1.5.1'
-        material_version = '1.4.0'
+        material_version = '1.7.0'
         constraintlayout_version = '2.1.4'
         recyclerview_version = '1.2.1'
-        glide_version = '4.12.0'
+        glide_version = '4.13.1'
         circleimageview_version = '3.1.0'
         shimmer_version = '0.5.0'
         circleindicator_version = '2.1.6'
