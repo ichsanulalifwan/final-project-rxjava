@@ -51,10 +51,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "de.hdodenhof:circleimageview:$circleimageview_version"
     implementation "com.facebook.shimmer:shimmer:$shimmer_version"
-    implementation "me.relex:circleindicator:$circleindicator_version"
-
-    // viewPager2
-    implementation "androidx.viewpager2:viewpager2:$viewpager2_version"
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
