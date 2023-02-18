@@ -10,7 +10,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.pajokka.manggala.maki"
+        applicationId "com.app.ichsanulalifwan.barani"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1
