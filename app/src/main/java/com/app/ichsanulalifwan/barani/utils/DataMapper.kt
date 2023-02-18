@@ -4,7 +4,6 @@ import com.app.ichsanulalifwan.barani.model.ArticlesItem
 import com.app.ichsanulalifwan.barani.model.News
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 object DataMapper {
 

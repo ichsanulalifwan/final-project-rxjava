@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.firebase.auth.FirebaseAuth
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.databinding.FragmentProfilBinding
 import com.app.ichsanulalifwan.barani.ui.signin.SignInActivity
 import com.app.ichsanulalifwan.barani.utils.Preferences
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_profil.*
 
 class ProfilFragment : Fragment() {

@@ -1,12 +1,17 @@
 package com.app.ichsanulalifwan.barani.ui.signin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.app.ichsanulalifwan.barani.R
+import com.app.ichsanulalifwan.barani.model.User
+import com.app.ichsanulalifwan.barani.ui.MainActivity
+import com.app.ichsanulalifwan.barani.ui.signup.SignUpActivity
+import com.app.ichsanulalifwan.barani.utils.Preferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -15,11 +20,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
-import com.app.ichsanulalifwan.barani.R
-import com.app.ichsanulalifwan.barani.ui.MainActivity
-import com.app.ichsanulalifwan.barani.ui.signup.SignUpActivity
-import com.app.ichsanulalifwan.barani.model.User
-import com.app.ichsanulalifwan.barani.utils.Preferences
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {

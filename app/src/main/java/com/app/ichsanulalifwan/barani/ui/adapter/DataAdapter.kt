@@ -4,14 +4,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.databinding.ItemNewsBinding
 import com.app.ichsanulalifwan.barani.model.News
 import com.app.ichsanulalifwan.barani.ui.detail.DetailActivity
 import com.app.ichsanulalifwan.barani.utils.DataMapper
-import kotlin.collections.ArrayList
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class DataAdapter : RecyclerView.Adapter<DataAdapter.FavoriteViewHolder>() {
 

@@ -12,13 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.*
 import com.app.ichsanulalifwan.barani.databinding.FragmentBerandaBinding
 import com.app.ichsanulalifwan.barani.model.Kkn
 import com.app.ichsanulalifwan.barani.model.News
 import com.app.ichsanulalifwan.barani.ui.adapter.DataAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.KknAdapter
 import com.app.ichsanulalifwan.barani.utils.DataMapper
+import com.google.firebase.database.*
 
 class BerandaFragment : Fragment() {
 

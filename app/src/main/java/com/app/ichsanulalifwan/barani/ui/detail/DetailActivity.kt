@@ -2,17 +2,17 @@ package com.app.ichsanulalifwan.barani.ui.detail
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.bumptech.glide.Glide
-import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.model.Kkn
 import com.app.ichsanulalifwan.barani.model.News
+import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.app.ichsanulalifwan.barani.utils.DataMapper
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {

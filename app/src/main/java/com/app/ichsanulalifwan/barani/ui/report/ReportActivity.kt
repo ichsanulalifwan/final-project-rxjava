@@ -3,25 +3,25 @@ package com.app.ichsanulalifwan.barani.ui.report
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_report.*
-import kotlinx.coroutines.*
-import java.util.*
-import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import kotlin.coroutines.CoroutineContext
-import com.google.firebase.storage.FirebaseStorage
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.model.Report
 import com.app.ichsanulalifwan.barani.utils.Preferences
+import com.bumptech.glide.Glide
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.coroutines.*
+import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 class ReportActivity : AppCompatActivity(), CoroutineScope {
 

@@ -1,17 +1,16 @@
 package com.app.ichsanulalifwan.barani.ui.list
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.*
 import com.app.ichsanulalifwan.barani.databinding.ListFragmentBinding
 import com.app.ichsanulalifwan.barani.model.Kkn
 import com.app.ichsanulalifwan.barani.model.News
@@ -19,6 +18,7 @@ import com.app.ichsanulalifwan.barani.ui.adapter.KknListAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.ListAdapter
 import com.app.ichsanulalifwan.barani.ui.beranda.BerandaViewModel
 import com.app.ichsanulalifwan.barani.utils.DataMapper
+import com.google.firebase.database.*
 
 class ListFragment : Fragment() {
 
