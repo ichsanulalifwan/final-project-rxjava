@@ -37,7 +37,7 @@ class ListFragment : Fragment() {
     ): View {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
         berandaViewModel =
-            ViewModelProvider(this).get(BerandaViewModel::class.java)
+            ViewModelProvider(this)[BerandaViewModel::class.java]
         return binding.root
     }
 
@@ -88,11 +88,11 @@ class ListFragment : Fragment() {
     }
 
     private fun setNews() {
-        berandaViewModel.getLatestNews().observe(viewLifecycleOwner, {
+        berandaViewModel.getLatestNews().observe(viewLifecycleOwner) {
             val newsList = DataMapper.mapResponseToModel(it)
             newsAdapter.setData(newsList as ArrayList<News>)
             binding.listShimmer.visibility = View.GONE
-        })
+        }
     }
 
     private fun getData() {

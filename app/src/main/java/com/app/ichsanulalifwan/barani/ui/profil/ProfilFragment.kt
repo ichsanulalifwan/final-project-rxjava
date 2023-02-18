@@ -31,7 +31,7 @@ class ProfilFragment : Fragment() {
     ): View {
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
         profilViewModel =
-            ViewModelProvider(this).get(ProfilViewModel::class.java)
+            ViewModelProvider(this)[ProfilViewModel::class.java]
         return binding.root
     }
 

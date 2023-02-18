@@ -37,7 +37,7 @@ class BerandaFragment : Fragment() {
     ): View {
         _binding = FragmentBerandaBinding.inflate(inflater, container, false)
         berandaViewModel =
-            ViewModelProvider(this).get(BerandaViewModel::class.java)
+            ViewModelProvider(this)[BerandaViewModel::class.java]
         return binding.root
     }
 
@@ -116,10 +116,10 @@ class BerandaFragment : Fragment() {
     }
 
     private fun setNews() {
-        berandaViewModel.getLatestNews().observe(viewLifecycleOwner, {
+        berandaViewModel.getLatestNews().observe(viewLifecycleOwner) {
             val newsList = DataMapper.mapResponseToModel(it)
             newsAdapter.setData(newsList as ArrayList<News>)
-        })
+        }
 
         berandaViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {

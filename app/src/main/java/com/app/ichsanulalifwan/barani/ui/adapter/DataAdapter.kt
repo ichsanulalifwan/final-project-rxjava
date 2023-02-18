@@ -36,7 +36,7 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.FavoriteViewHolder>() {
         holder.bind(listData[position])
     }
 
-    override fun getItemCount(): Int = Math.min(listData.size, dataLimit)
+    override fun getItemCount(): Int = listData.size.coerceAtMost(dataLimit)
 
     inner class FavoriteViewHolder(private val binding: ItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
