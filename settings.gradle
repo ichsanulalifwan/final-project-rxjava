@@ -17,3 +17,8 @@ dependencyResolutionManagement {
 }
 include ':app'
 rootProject.name = "FinalProject"
+include ':rxjava'
+include ':kotlin-flow'
+include ':reactor'
+include ':core'
+include ':benchmark'
