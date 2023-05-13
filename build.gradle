@@ -28,6 +28,9 @@ buildscript {
         retrofit2_version = '2.9.0'
         okhttp3_version = '4.9.2'
 
+        // Room
+        room_version = '2.3.0'
+
         // Camera
         imagepicker_version = '2.1'
 
