@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'org.sonarqube'
 }
 
 android {
@@ -86,4 +87,18 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "FinalProject"
+        property "sonar.projectName", "FinalProject"
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.login", "SONARQUBE_LOGIN_HERE"
+        property "sonar.scm.disabled", true
+        property "sonar.projectBaseDir", "$projectDir/.."
+        property "sonar.sources", "kotlin-flow/src/main/java," +
+                "rxjava/src/main/java," + "reactor/src/main/java,"
+        property "sonar.coverage.exclusions", "**/*"
+    }
 }
