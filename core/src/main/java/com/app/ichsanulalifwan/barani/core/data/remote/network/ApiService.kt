@@ -1,6 +1,6 @@
-package com.app.ichsanulalifwan.barani.network
+package com.app.ichsanulalifwan.barani.core.data.remote.network
 
-import com.app.ichsanulalifwan.barani.model.NewsResponse
+import com.app.ichsanulalifwan.barani.core.model.NewsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
