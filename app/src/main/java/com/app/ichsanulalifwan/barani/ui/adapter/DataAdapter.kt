@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ichsanulalifwan.barani.R
+import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.databinding.ItemNewsBinding
-import com.app.ichsanulalifwan.barani.model.News
 import com.app.ichsanulalifwan.barani.ui.detail.DetailActivity
 import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.bumptech.glide.Glide
