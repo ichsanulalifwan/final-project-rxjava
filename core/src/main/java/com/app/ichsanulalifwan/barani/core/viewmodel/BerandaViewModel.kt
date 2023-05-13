@@ -1,13 +1,13 @@
-package com.app.ichsanulalifwan.barani.ui.beranda
+package com.app.ichsanulalifwan.barani.core.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.app.ichsanulalifwan.barani.BuildConfig
-import com.app.ichsanulalifwan.barani.model.ArticlesItem
-import com.app.ichsanulalifwan.barani.model.NewsResponse
-import com.app.ichsanulalifwan.barani.network.ApiConfig
+import com.app.ichsanulalifwan.barani.core.BuildConfig
+import com.app.ichsanulalifwan.barani.core.data.remote.network.ApiConfig
+import com.app.ichsanulalifwan.barani.core.model.ArticlesItem
+import com.app.ichsanulalifwan.barani.core.model.NewsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

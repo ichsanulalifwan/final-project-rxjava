@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.ichsanulalifwan.barani.core.model.Kkn
+import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.viewmodel.BerandaViewModel
 import com.app.ichsanulalifwan.barani.databinding.ListFragmentBinding
-import com.app.ichsanulalifwan.barani.model.Kkn
-import com.app.ichsanulalifwan.barani.model.News
 import com.app.ichsanulalifwan.barani.ui.adapter.KknListAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.ListAdapter
-import com.app.ichsanulalifwan.barani.ui.beranda.BerandaViewModel
 import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.google.firebase.database.*
 

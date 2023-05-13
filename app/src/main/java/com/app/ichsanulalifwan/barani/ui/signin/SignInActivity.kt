@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.app.ichsanulalifwan.barani.R
-import com.app.ichsanulalifwan.barani.model.User
+import com.app.ichsanulalifwan.barani.core.model.User
 import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.app.ichsanulalifwan.barani.ui.signup.SignUpActivity
 import com.app.ichsanulalifwan.barani.utils.Preferences

@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.app.ichsanulalifwan.barani.R
-import com.app.ichsanulalifwan.barani.model.Report
+import com.app.ichsanulalifwan.barani.core.model.Report
 import com.app.ichsanulalifwan.barani.utils.Preferences
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker

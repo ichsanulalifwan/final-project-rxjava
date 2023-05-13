@@ -8,8 +8,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.app.ichsanulalifwan.barani.R
-import com.app.ichsanulalifwan.barani.model.Kkn
-import com.app.ichsanulalifwan.barani.model.News
+import com.app.ichsanulalifwan.barani.core.model.Kkn
+import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.bumptech.glide.Glide
