@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.model
+package com.app.ichsanulalifwan.barani.core.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
