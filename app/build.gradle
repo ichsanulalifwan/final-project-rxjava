@@ -4,14 +4,17 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'org.sonarqube'
 }
+
+apply from: '../shared_dependencies.gradle'
 
 android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.pajokka.manggala.maki"
-        minSdkVersion 21
+        applicationId "com.app.ichsanulalifwan.barani"
+        minSdkVersion 24
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
@@ -25,6 +28,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        benchmark {
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['release']
+            debuggable false
         }
     }
     compileOptions {
@@ -40,34 +48,20 @@ android {
 }
 
 dependencies {
-    // APIs
-    implementation "androidx.core:core-ktx:$core_version"
+    implementation project(":core")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // UI
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "de.hdodenhof:circleimageview:$circleimageview_version"
     implementation "com.facebook.shimmer:shimmer:$shimmer_version"
-    implementation "me.relex:circleindicator:$circleindicator_version"
-
-    // viewPager2
-    implementation "androidx.viewpager2:viewpager2:$viewpager2_version"
-
-    // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-
-    // Networking
-    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
 
     // Camera
     implementation "com.github.dhaval2404:imagepicker:$imagepicker_version"
@@ -80,9 +74,18 @@ dependencies {
 
     // Google Play services library
     implementation "com.google.android.gms:play-services-auth:$googleplay_version"
+}
 
-    // Testing
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+sonarqube {
+    properties {
+        property "sonar.projectKey", "FinalProject"
+        property "sonar.projectName", "FinalProject"
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.login", "SONARQUBE_LOGIN_HERE"
+        property "sonar.scm.disabled", true
+        property "sonar.projectBaseDir", "$projectDir/.."
+        property "sonar.sources", "kotlin-flow/src/main/java," +
+                "rxjava/src/main/java," + "reactor/src/main/java,"
+        property "sonar.coverage.exclusions", "**/*"
+    }
 }
