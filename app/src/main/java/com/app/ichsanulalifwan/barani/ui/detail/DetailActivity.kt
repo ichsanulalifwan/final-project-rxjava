@@ -39,6 +39,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun populateKKN(dataKkn: Kkn) {
         tv_name_detail.text = dataKkn.title
+        tv_author.text = dataKkn.author
         tv_date_time_loc.text = DataMapper.kknDateFormatter(dataKkn.createdAt)
         val data = dataKkn.content
         tv_desc_detail.text = Html.fromHtml(data)
