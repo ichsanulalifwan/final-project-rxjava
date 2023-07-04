@@ -13,6 +13,7 @@ object DataMapper {
             val news =
                 News(
                     title = it.title,
+                    author = it.author,
                     date = it.publishedAt,
                     image = it.urlToImage,
                     desc = it.description,
