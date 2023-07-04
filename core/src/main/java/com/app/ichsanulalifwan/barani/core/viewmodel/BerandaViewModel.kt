@@ -20,7 +20,7 @@ class BerandaViewModel : ViewModel() {
     fun getLatestNews(): LiveData<List<ArticlesItem>> {
         _isLoading.value = true
         val news = MutableLiveData<List<ArticlesItem>>()
-        ApiConfig.provideApiService().getNews("id", "health", API_KEY)
+        ApiConfig.provideApiService().getNews("us", "health", API_KEY)
             .enqueue(object : Callback<NewsResponse> {
                 override fun onResponse(
                     call: Call<NewsResponse>,
