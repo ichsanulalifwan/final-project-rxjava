@@ -148,7 +148,7 @@
         android:focusable="true"
         android:fontFamily="@font/poppins_medium"
         android:foreground="?attr/selectableItemBackground"
-        android:text="@string/lanjutkan"
+        android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
