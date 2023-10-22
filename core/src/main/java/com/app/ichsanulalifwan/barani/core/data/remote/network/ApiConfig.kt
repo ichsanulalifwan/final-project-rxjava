@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiConfig {
 
-    private const val URL = "https://newsapi.org/v2/"
+    private const val URL = "https://newsapi.org/"
 
     private fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
