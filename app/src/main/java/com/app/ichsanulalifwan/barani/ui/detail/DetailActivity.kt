@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.ui.MainActivity
-import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
 

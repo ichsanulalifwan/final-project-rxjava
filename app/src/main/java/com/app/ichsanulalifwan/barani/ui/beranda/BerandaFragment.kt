@@ -14,11 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BerandaViewModel
 import com.app.ichsanulalifwan.barani.databinding.FragmentBerandaBinding
 import com.app.ichsanulalifwan.barani.ui.adapter.DataAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.KknAdapter
-import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.google.firebase.database.*
 
 class BerandaFragment : Fragment() {

@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.Kkn
+import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.databinding.ItemKknBinding
 import com.app.ichsanulalifwan.barani.ui.detail.DetailActivity
-import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
