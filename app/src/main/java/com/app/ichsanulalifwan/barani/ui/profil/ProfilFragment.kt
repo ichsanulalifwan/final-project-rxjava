@@ -14,7 +14,6 @@ import com.app.ichsanulalifwan.barani.utils.Preferences
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_profil.*
 
 class ProfilFragment : Fragment() {
 
@@ -42,31 +41,33 @@ class ProfilFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        t2.text = preferences.getValues("email")
-        t3.text = preferences.getValues("nama")
+        binding.run {
+            t2.text = preferences.getValues("email")
+            t3.text = preferences.getValues("nama")
 
-        if (preferences.getValues("type").equals("1")) {
-            btn_logout.setOnClickListener {
-                preferences.setValues("status", "0")
-                firebaseAuth.signOut()
-                checkUser()
-            }
-        } else if (preferences.getValues("type").equals("2")) {
-            val firebaseUser = firebaseAuth.currentUser
+            if (preferences.getValues("type").equals("1")) {
+                btnLogout.setOnClickListener {
+                    preferences.setValues("status", "0")
+                    firebaseAuth.signOut()
+                    checkUser()
+                }
+            } else if (preferences.getValues("type").equals("2")) {
+                val firebaseUser = firebaseAuth.currentUser
 
-            if (firebaseUser != null) {
-                Glide.with(this)
-                    .load(firebaseUser.photoUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.user_account)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(img_user)
-            }
+                if (firebaseUser != null) {
+                    Glide.with(this@ProfilFragment)
+                        .load(firebaseUser.photoUrl)
+                        .centerCrop()
+                        .placeholder(R.drawable.user_account)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imgUser)
+                }
 
-            btn_logout.setOnClickListener {
-                preferences.setValues("status", "0")
-                firebaseAuth.signOut()
-                checkUser()
+                btnLogout.setOnClickListener {
+                    preferences.setValues("status", "0")
+                    firebaseAuth.signOut()
+                    checkUser()
+                }
             }
         }
     }

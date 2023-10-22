@@ -11,24 +11,27 @@ import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
+import com.app.ichsanulalifwan.barani.databinding.ActivityDetailBinding
 import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+    private lateinit var binding: ActivityDetailBinding
 
-        iv_back.setOnClickListener {
-            startActivity(Intent(this@DetailActivity, MainActivity::class.java))
-            finish()
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // prevent dark mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val getDataKKN = intent.getParcelableExtra<Kkn>(EXTRA_KKN)
         val getDataNews = intent.getParcelableExtra<News>(EXTRA_NEWS)
+
+        initListener()
 
         if (getDataKKN != null) {
             populateKKN(getDataKKN)
@@ -37,36 +40,47 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateKKN(dataKkn: Kkn) {
-        tv_name_detail.text = dataKkn.title
-        tv_author.text = dataKkn.author
-        tv_date_time_loc.text = DataMapper.kknDateFormatter(dataKkn.createdAt)
-        val data = dataKkn.content
-        tv_desc_detail.text = Html.fromHtml(data)
-        btn_news.visibility = View.GONE
+    private fun initListener() {
+        binding.ivBack.setOnClickListener {
+            startActivity(Intent(this@DetailActivity, MainActivity::class.java))
+            finish()
+        }
+    }
 
-        Glide.with(this@DetailActivity)
-            .load(dataKkn.imageUrl)
-            .centerCrop()
-            .placeholder(R.drawable.image_load)
-            .into(img_report)
+    private fun populateKKN(dataKkn: Kkn) {
+        binding.run {
+            tvNameDetail.text = dataKkn.title
+            tvAuthor.text = dataKkn.author
+            tvDateTimeLoc.text = DataMapper.kknDateFormatter(dataKkn.createdAt)
+            val data = dataKkn.content
+            tvDescDetail.text = Html.fromHtml(data)
+            btnNews.visibility = View.GONE
+
+            Glide.with(this@DetailActivity)
+                .load(dataKkn.imageUrl)
+                .centerCrop()
+                .placeholder(R.drawable.image_load)
+                .into(imgReport)
+        }
     }
 
     private fun populateNews(dataNews: News) {
-        tv_name_detail.text = dataNews.title
-        tv_date_time_loc.text = DataMapper.newsDateFormatter(dataNews.date)
-        tv_desc_detail.text = dataNews.desc
-        btn_news.setOnClickListener {
-            val urlIntent = Intent(Intent.ACTION_VIEW)
-            urlIntent.data = Uri.parse(dataNews.url)
-            startActivity(urlIntent)
-        }
+        binding.run {
+            tvNameDetail.text = dataNews.title
+            tvDateTimeLoc.text = DataMapper.newsDateFormatter(dataNews.date)
+            tvDescDetail.text = dataNews.desc
+            btnNews.setOnClickListener {
+                val urlIntent = Intent(Intent.ACTION_VIEW)
+                urlIntent.data = Uri.parse(dataNews.url)
+                startActivity(urlIntent)
+            }
 
-        Glide.with(this@DetailActivity)
-            .load(dataNews.image)
-            .centerCrop()
-            .placeholder(R.drawable.image_load)
-            .into(img_report)
+            Glide.with(this@DetailActivity)
+                .load(dataNews.image)
+                .centerCrop()
+                .placeholder(R.drawable.image_load)
+                .into(imgReport)
+        }
     }
 
     companion object {

@@ -9,22 +9,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.Report
+import com.app.ichsanulalifwan.barani.databinding.ActivityReportBinding
 import com.app.ichsanulalifwan.barani.utils.Preferences
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_report.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class ReportActivity : AppCompatActivity(), CoroutineScope {
 
+    private lateinit var binding: ActivityReportBinding
     private lateinit var preferences: Preferences
     private lateinit var firebaseAuth: FirebaseAuth
     private val job = Job()
@@ -35,7 +34,9 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_report)
+
+        binding = ActivityReportBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val dataUri = intent.getParcelableExtra<Uri>("URI")
 
@@ -45,36 +46,44 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
         Glide.with(this)
             .asBitmap()
             .load(dataUri)
-            .into(img_report)
+            .into(binding.imgReport)
 
-        kirim.setOnClickListener {
-            pb_send_report.visibility = View.VISIBLE
-            val title = input_title_edt.text.toString()
-            val phoneNumber = input_phone_edt.text.toString()
+        binding.kirim.setOnClickListener {
+            validateInput(dataUri)
+        }
+
+        whenClickingRetakeButton()
+        whenClickingCancelButton()
+    }
+
+    private fun validateInput(data: Uri?) {
+        binding.run {
+            pbSendReport.visibility = View.VISIBLE
+            val title = inputTitleEdt.text.toString()
+            val phoneNumber = inputPhoneEdt.text.toString()
             val desc = edReview.text.toString()
 
             if (title.isEmpty() || title == "") {
-                input_title_edt.error = "Silakan isi judul laporan"
-                input_title_edt.requestFocus()
-                pb_send_report.visibility = View.GONE
+                inputTitleEdt.error = "Silakan isi judul laporan"
+                inputTitleEdt.requestFocus()
+                pbSendReport.visibility = View.GONE
             } else if (phoneNumber.isEmpty() || phoneNumber == "") {
-                input_phone_edt.error = "Silakan tambahkan nomor telepon anda"
-                input_phone_edt.requestFocus()
-                pb_send_report.visibility = View.GONE
+                inputPhoneEdt.error = "Silakan tambahkan nomor telepon anda"
+                inputPhoneEdt.requestFocus()
+                pbSendReport.visibility = View.GONE
             } else if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
-                input_phone_edt.error = "Format nomor telepon anda salah"
-                input_phone_edt.requestFocus()
-                pb_send_report.visibility = View.GONE
+                inputPhoneEdt.error = "Format nomor telepon anda salah"
+                inputPhoneEdt.requestFocus()
+                pbSendReport.visibility = View.GONE
             } else if (desc.isEmpty() || desc == "") {
                 edReview.error = "Silakan tambahkan deskripsi laporan"
                 edReview.requestFocus()
-                pb_send_report.visibility = View.GONE
+                pbSendReport.visibility = View.GONE
             } else {
-                uploadImageToFirebaseStorage(title, phoneNumber, desc, dataUri)
+                uploadImageToFirebaseStorage(title, phoneNumber, desc, data)
             }
         }
-        whenClickingRetakeButton()
-        whenClickingCancelButton()
+
     }
 
     private fun uploadImageToFirebaseStorage(
@@ -103,7 +112,7 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
                                 mDatabase.child(userId).push().setValue(report)
                             }
                             finish()
-                            pb_send_report.visibility = View.GONE
+                            binding.pbSendReport.visibility = View.GONE
                             Toast.makeText(
                                 this@ReportActivity,
                                 "Laporan berhasil dikirimkan",
@@ -124,13 +133,13 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun whenClickingRetakeButton() {
-        card_photo.setOnClickListener {
+        binding.cardPhoto.setOnClickListener {
             openCamera()
         }
     }
 
     private fun whenClickingCancelButton() {
-        btn_cancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             finish()
         }
     }
@@ -149,13 +158,13 @@ class ReportActivity : AppCompatActivity(), CoroutineScope {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val uri: Uri = data?.data!!
+            val uri: Uri? = data?.data
             when (requestCode) {
                 CAMERA_IMAGE_REQ_CODE -> {
                     Glide.with(this)
                         .asBitmap()
                         .load(uri)
-                        .into(img_report)
+                        .into(binding.imgReport)
                 }
             }
         }

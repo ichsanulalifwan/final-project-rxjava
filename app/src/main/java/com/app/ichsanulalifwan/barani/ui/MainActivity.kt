@@ -7,33 +7,46 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.app.ichsanulalifwan.barani.R
+import com.app.ichsanulalifwan.barani.databinding.ActivityMainBinding
 import com.app.ichsanulalifwan.barani.ui.report.ReportActivity
 import com.github.dhaval2404.imagepicker.ImagePicker
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomappbar.BottomAppBar
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        // prevent dark mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Setup the bottom navigation view with navController
+        val bottomNavigationView: BottomAppBar = binding.navView
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
-        bottomNavigationView.background = null
-        bottomNavigationView.menu.getItem(1).isEnabled = false
+        bottomNavigationView.apply {
+            background = null
+            menu.getItem(1).isEnabled = false
+        }
 
-        floating_button_camera.setOnClickListener {
+        binding.floatingButtonCamera.setOnClickListener {
             openCamera()
         }
     }
@@ -48,7 +61,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
