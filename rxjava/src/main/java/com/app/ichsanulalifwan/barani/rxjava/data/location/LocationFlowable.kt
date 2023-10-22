@@ -1,10 +1,8 @@
 package com.app.ichsanulalifwan.barani.rxjava.data.location
 
 import android.annotation.SuppressLint
-import android.location.Location
-import android.location.LocationRequest
 import android.os.Looper
-import com.example.kitprotocol.throwable.LocationProviderNotAvailableException
+import com.app.ichsanulalifwan.barani.core.utils.throwable.LocationProviderNotAvailableException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationAvailability
 import com.google.android.gms.location.LocationCallback
@@ -14,8 +12,10 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 
 @SuppressLint("MissingPermission")
-internal fun getLocationUpdates(locationServiceClient: FusedLocationProviderClient, locationRequest: LocationRequest) =
-    Flowable.create<Location>({ emitter ->
+internal fun getLocationUpdates(
+    locationServiceClient: FusedLocationProviderClient,
+    locationRequest: LocationRequest
+) = Flowable.create({ emitter ->
 
         var locationCheck = false
 
@@ -27,21 +27,27 @@ internal fun getLocationUpdates(locationServiceClient: FusedLocationProviderClie
                 emitter.onNext(result.locations.first())
             }
 
-        override fun onLocationAvailability(availability: LocationAvailability) {
+            override fun onLocationAvailability(availability: LocationAvailability) {
 
-            // This callback will randomly receive a false signal, for the purpose we only need the initial signal.
-            // In case the location is not available when starting the search
-            // this will propagate a [LocationProviderNotAvailableException]
+                // This callback will randomly receive a false signal, for the purpose we only need the initial signal.
+                // In case the location is not available when starting the search
+                // this will propagate a [LocationProviderNotAvailableException]
 
-            if (!locationCheck) {
-                if (!availability.isLocationAvailable) emitter.onError(LocationProviderNotAvailableException())
-                locationCheck = true
+                if (!locationCheck) {
+                    if (!availability.isLocationAvailable) emitter.onError(
+                        LocationProviderNotAvailableException()
+                    )
+                    locationCheck = true
+                }
             }
         }
-    }
 
-    locationServiceClient.requestLocationUpdates(locationRequest, callback, Looper.getMainLooper())
+        locationServiceClient.requestLocationUpdates(
+            locationRequest,
+            callback,
+            Looper.getMainLooper()
+        )
 
-    emitter.setCancellable { locationServiceClient.removeLocationUpdates(callback) }
+        emitter.setCancellable { locationServiceClient.removeLocationUpdates(callback) }
 
-}, BackpressureStrategy.LATEST)
+    }, BackpressureStrategy.LATEST)

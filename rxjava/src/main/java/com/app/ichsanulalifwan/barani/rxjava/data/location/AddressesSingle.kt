@@ -2,8 +2,7 @@ package com.app.ichsanulalifwan.barani.rxjava.data.location
 
 import android.location.Address
 import android.location.Location
-import com.app.ichsanulalifwan.barani.core.data.LocationRepository
-import com.example.kitprotocol.location.AddressRepository
+import com.app.ichsanulalifwan.barani.core.data.location.LocationRepository
 import io.reactivex.Single
 
 internal fun getAddresses(addressRepository: LocationRepository, location: Location, maxResults: Int) =
