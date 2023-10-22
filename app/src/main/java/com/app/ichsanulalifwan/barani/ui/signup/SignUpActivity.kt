@@ -7,18 +7,18 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.User
+import com.app.ichsanulalifwan.barani.databinding.ActivitySignUpBinding
 import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.app.ichsanulalifwan.barani.ui.signin.SignInActivity
 import com.app.ichsanulalifwan.barani.utils.Preferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySignUpBinding
     private lateinit var mFirebaseDatabase: DatabaseReference
     private lateinit var mFirebaseInstance: FirebaseDatabase
     private lateinit var mDatabase: DatabaseReference
@@ -28,7 +28,9 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mFirebaseInstance = FirebaseDatabase.getInstance()
         mDatabase = FirebaseDatabase.getInstance().reference
@@ -36,40 +38,57 @@ class SignUpActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         preferences = Preferences(this)
 
-        btn_home.setOnClickListener {
+        initListener()
+    }
+
+    private fun initListener() {
+        binding.apply {
+            btnHome.setOnClickListener {
+                validateInputO()
+            }
+
+            imageView3.setOnClickListener {
+                navigateToSignInPage()
+            }
+        }
+    }
+
+
+    private fun validateInputO() {
+        binding.run {
             progressBar.visibility = View.VISIBLE
-            val sNama = et_nama.text.toString()
-            val sEmail = et_email.text.toString()
-            val sPassword = et_password.text.toString()
+            val sNama = etNama.text.toString()
+            val sEmail = etEmail.text.toString()
+            val sPassword = etPassword.text.toString()
 
             if (sNama.isEmpty() || sNama == "") {
-                et_nama.error = "Silakan isi nama anda"
-                et_nama.requestFocus()
+                etNama.error = "Silakan isi nama anda"
+                etNama.requestFocus()
                 progressBar.visibility = View.GONE
             } else if (sEmail.isEmpty() || sEmail == "") {
-                et_email.error = "Silakan isi email anda"
-                et_email.requestFocus()
+                etEmail.error = "Silakan isi email anda"
+                etEmail.requestFocus()
                 progressBar.visibility = View.GONE
             } else if (!Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()) {
-                et_email.error = "Format email anda salah"
-                et_email.requestFocus()
+                etEmail.error = "Format email anda salah"
+                etEmail.requestFocus()
                 progressBar.visibility = View.GONE
             } else if (sPassword.isEmpty() || sPassword == "") {
-                et_password.error = "Silakan isi kata sandi anda"
-                et_password.requestFocus()
+                etPassword.error = "Silakan isi kata sandi anda"
+                etPassword.requestFocus()
                 progressBar.visibility = View.GONE
             } else if (sPassword.length < 6) {
-                et_password.error = "Sandi minimal 6 karakter"
+                etPassword.error = "Sandi minimal 6 karakter"
                 progressBar.visibility = View.GONE
             } else {
                 saveUser(sEmail, sPassword, sNama)
             }
         }
+    }
 
-        imageView3.setOnClickListener {
-            startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
-            finish()
-        }
+    private fun navigateToSignInPage() {
+        startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
+        finish()
     }
 
     private fun saveUser(sEmail: String, sPassword: String, sNama: String) {
@@ -97,12 +116,12 @@ class SignUpActivity : AppCompatActivity() {
                     startActivity(intent)
                     Toast.makeText(this@SignUpActivity, "Selamat Datang $sNama", Toast.LENGTH_SHORT)
                         .show()
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     finishAffinity()
                 } else {
                     Toast.makeText(this@SignUpActivity, "Registrasi akun gagal", Toast.LENGTH_LONG)
                         .show()
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                 }
             }
     }

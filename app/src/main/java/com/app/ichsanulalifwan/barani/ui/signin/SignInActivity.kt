@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.User
+import com.app.ichsanulalifwan.barani.databinding.ActivitySignInBinding
 import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.app.ichsanulalifwan.barani.ui.signup.SignUpActivity
 import com.app.ichsanulalifwan.barani.utils.Preferences
@@ -20,10 +21,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySignInBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var mDatabase: FirebaseDatabase
@@ -33,7 +34,9 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+
+        binding = ActivitySignInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -49,13 +52,9 @@ class SignInActivity : AppCompatActivity() {
         databaseReference = mDatabase.reference.child("User")
         checkUser()
 
-        btn_googleSignIn.setOnClickListener {
-            // SignIn with Google Account
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
-
         preferences = Preferences(this)
+
+        initListener()
 
         preferences.setValues("onboarding", "1")
         if (preferences.getValues("status").equals("1")) {
@@ -66,35 +65,57 @@ class SignInActivity : AppCompatActivity() {
                 MainActivity::class.java
             )
             startActivity(intent)
-            progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun initListener() {
+
+        binding.btnGoogleSignIn.setOnClickListener {
+            // SignIn with Google Account
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-        btn_home.setOnClickListener {
-            val iEmail = et_username.text.toString()
-            val iPassword = et_password.text.toString()
+
+        binding.apply {
+            btnHome.setOnClickListener {
+                validateInput()
+            }
+
+            btnDaftar.setOnClickListener {
+                navigateToSignUpPage()
+            }
+        }
+    }
+
+    private fun validateInput() {
+        binding.run {
+            val iEmail = etUsername.text.toString()
+            val iPassword = etPassword.text.toString()
 
             progressBar.visibility = View.VISIBLE
 
             if (iEmail.isEmpty() || iEmail == "") {
-                et_username.error = "Silakan isi email anda"
-                et_username.requestFocus()
+                etUsername.error = "Silakan isi email anda"
+                etUsername.requestFocus()
                 progressBar.visibility = View.GONE
             } else if (iPassword.isEmpty() || iPassword == "") {
-                et_password.error = "Silakan isi kata sandi anda"
-                et_password.requestFocus()
+                etPassword.error = "Silakan isi kata sandi anda"
+                etPassword.requestFocus()
                 progressBar.visibility = View.GONE
             } else {
                 pushLogin(iEmail, iPassword)
             }
         }
+    }
 
-        btn_daftar.setOnClickListener {
-            val intent = Intent(
-                this@SignInActivity,
-                SignUpActivity::class.java
-            )
-            startActivity(intent)
-        }
+    private fun navigateToSignUpPage() {
+        val intent = Intent(
+            this@SignInActivity,
+            SignUpActivity::class.java
+        )
+        startActivity(intent)
     }
 
     private fun checkUser() {
@@ -221,7 +242,7 @@ class SignInActivity : AppCompatActivity() {
                         }
                     })
 
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     val intent = Intent(
                         this@SignInActivity,
                         MainActivity::class.java
@@ -234,7 +255,7 @@ class SignInActivity : AppCompatActivity() {
                         "Email atau sandi anda salah, silakan coba kembali",
                         Toast.LENGTH_LONG
                     ).show()
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                 }
             }
     }
