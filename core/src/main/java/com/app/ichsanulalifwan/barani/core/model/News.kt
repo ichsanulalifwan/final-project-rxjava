@@ -1,14 +1,15 @@
 package com.app.ichsanulalifwan.barani.core.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class News(
     val title: String,
-    val author: String?,
+    val author: String,
     val date: String,
-    val image: String?,
-    val desc: String?,
-    val url: String?
-): Parcelable
+    val image: String,
+    val desc: String,
+    val url: String,
+    val content: String,
+) : Parcelable
