@@ -14,7 +14,6 @@ import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.databinding.ActivityMainBinding
 import com.app.ichsanulalifwan.barani.ui.report.ReportActivity
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.bottomappbar.BottomAppBar
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         setContentView(binding.root)
 
         // Setup the bottom navigation view with navController
-        val bottomNavigationView: BottomAppBar = binding.navView
+        val bottomNavigationView = binding.bottomNavigationView
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
