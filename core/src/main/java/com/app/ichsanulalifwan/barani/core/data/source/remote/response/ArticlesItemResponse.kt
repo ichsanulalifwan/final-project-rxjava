@@ -17,7 +17,7 @@ data class ArticlesItemResponse(
     val description: String? = "",
 
     @SerializedName("source")
-    val source: SourceResponse,
+    val source: SourceResponse? = SourceResponse(),
 
     @SerializedName("title")
     val title: String? = "",
