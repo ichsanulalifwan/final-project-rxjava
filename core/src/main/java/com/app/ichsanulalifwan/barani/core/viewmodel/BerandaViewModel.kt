@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.app.ichsanulalifwan.barani.core.BuildConfig
-import com.app.ichsanulalifwan.barani.core.data.remote.network.ApiConfig
-import com.app.ichsanulalifwan.barani.core.data.remote.response.ArticlesItemResponse
-import com.app.ichsanulalifwan.barani.core.data.remote.response.NewsResponse
+import com.app.ichsanulalifwan.barani.core.data.source.remote.network.ApiConfig
+import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesItemResponse
+import com.app.ichsanulalifwan.barani.core.data.source.remote.response.NewsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +20,7 @@ class BerandaViewModel : ViewModel() {
     fun getLatestNews(): LiveData<List<ArticlesItemResponse>> {
         _isLoading.value = true
         val news = MutableLiveData<List<ArticlesItemResponse>>()
-        ApiConfig.provideApiService().getTopHeadlines("us", "health", API_KEY)
+        ApiConfig.getApiService().getTopHeadlines("us", "health", API_KEY)
             .enqueue(object : Callback<NewsResponse> {
                 override fun onResponse(
                     call: Call<NewsResponse>,

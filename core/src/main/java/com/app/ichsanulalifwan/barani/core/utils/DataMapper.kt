@@ -1,6 +1,6 @@
 package com.app.ichsanulalifwan.barani.core.utils
 
-import com.app.ichsanulalifwan.barani.core.data.remote.response.ArticlesItemResponse
+import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesItemResponse
 import com.app.ichsanulalifwan.barani.core.model.News
 import java.text.SimpleDateFormat
 import java.util.*

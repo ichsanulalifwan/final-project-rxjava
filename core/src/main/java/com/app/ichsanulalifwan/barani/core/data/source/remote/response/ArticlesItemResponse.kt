@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.core.data.remote.response
+package com.app.ichsanulalifwan.barani.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
