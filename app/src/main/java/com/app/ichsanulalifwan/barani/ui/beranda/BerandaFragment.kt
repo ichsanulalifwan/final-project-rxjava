@@ -14,11 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BerandaViewModel
 import com.app.ichsanulalifwan.barani.databinding.FragmentBerandaBinding
 import com.app.ichsanulalifwan.barani.ui.adapter.DataAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.KknAdapter
-import com.app.ichsanulalifwan.barani.utils.DataMapper
 import com.google.firebase.database.*
 
 class BerandaFragment : Fragment() {
@@ -103,9 +103,11 @@ class BerandaFragment : Fragment() {
                 dataList.clear()
                 for (getdataSnapshot in dataSnapshot.children) {
                     val data = getdataSnapshot.getValue(Kkn::class.java)
-                    dataList.add(data!!)
+                    if (data != null) {
+                        dataList.add(data)
+                    }
                     kknAdapter.setData(dataList)
-                    checkDataKkn()
+//                    checkDataKkn()
                 }
                 Log.d(context.toString(), "Data : $dataList")
             }

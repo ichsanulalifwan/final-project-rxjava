@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.core.data
+package com.app.ichsanulalifwan.barani.core.data.repository.location
 
 import android.content.Context
 import android.location.Address

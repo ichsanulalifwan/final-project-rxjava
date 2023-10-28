@@ -1,22 +1,24 @@
-package com.app.ichsanulalifwan.barani.utils
+package com.app.ichsanulalifwan.barani.core.utils
 
-import com.app.ichsanulalifwan.barani.core.model.ArticlesItem
+import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesItemResponse
 import com.app.ichsanulalifwan.barani.core.model.News
 import java.text.SimpleDateFormat
 import java.util.*
 
 object DataMapper {
 
-    fun mapResponseToModel(input: List<ArticlesItem>): List<News> {
+    fun mapResponseToModel(input: List<ArticlesItemResponse>): List<News> {
         val newsList = ArrayList<News>()
         input.map {
             val news =
                 News(
-                    title = it.title,
-                    date = it.publishedAt,
-                    image = it.urlToImage,
-                    desc = it.description,
-                    url = it.url
+                    title = it.title ?: "",
+                    author = it.author ?: "",
+                    date = it.publishedAt ?: "",
+                    image = it.urlToImage ?: "",
+                    desc = it.description ?: "",
+                    url = it.url ?: "",
+                    content = it.content ?: "",
                 )
             newsList.add(news)
         }
