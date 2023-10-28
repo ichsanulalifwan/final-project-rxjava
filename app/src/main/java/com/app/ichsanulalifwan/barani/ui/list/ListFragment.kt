@@ -89,7 +89,7 @@ class ListFragment : Fragment() {
 
     private fun setNews() {
         berandaViewModel.getLatestNews().observe(viewLifecycleOwner) {
-            val newsList = DataMapper.mapResponseToModel(it)
+            val newsList = DataMapper.mapNewsListToModel(it)
             newsAdapter.setData(newsList as ArrayList<News>)
             binding.listShimmer.visibility = View.GONE
         }
