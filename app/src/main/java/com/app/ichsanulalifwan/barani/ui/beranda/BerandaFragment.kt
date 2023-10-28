@@ -103,9 +103,11 @@ class BerandaFragment : Fragment() {
                 dataList.clear()
                 for (getdataSnapshot in dataSnapshot.children) {
                     val data = getdataSnapshot.getValue(Kkn::class.java)
-                    dataList.add(data!!)
+                    if (data != null) {
+                        dataList.add(data)
+                    }
                     kknAdapter.setData(dataList)
-                    checkDataKkn()
+//                    checkDataKkn()
                 }
                 Log.d(context.toString(), "Data : $dataList")
             }
