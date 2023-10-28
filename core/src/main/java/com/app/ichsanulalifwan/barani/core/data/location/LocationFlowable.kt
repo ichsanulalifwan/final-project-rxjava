@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.rxjava.data.location
+package com.app.ichsanulalifwan.barani.core.data.location
 
 import android.annotation.SuppressLint
 import android.os.Looper

@@ -1,8 +1,8 @@
-package com.app.ichsanulalifwan.barani.rxjava.data.location
+package com.app.ichsanulalifwan.barani.core.data.location
 
 import android.location.Address
 import android.location.Location
-import com.app.ichsanulalifwan.barani.core.data.location.LocationRepository
+import com.app.ichsanulalifwan.barani.core.data.repository.location.LocationRepository
 import io.reactivex.Single
 
 internal fun getAddresses(addressRepository: LocationRepository, location: Location, maxResults: Int) =
