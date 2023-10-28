@@ -1,17 +1,17 @@
-package com.app.ichsanulalifwan.barani.core.data.location
+package com.app.ichsanulalifwan.barani.core.data.repository.location
 
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
-import java.util.*
+import java.util.Locale
 
-class LocationRepository(context: Context, val isMock: Boolean) {
+class AddressRepository(context: Context, val isMock: Boolean) {
 
     private val geoCoder = Geocoder(context)
 
     fun getAddresses(
         longitude: Double,
-        latitude: Double, 
+        latitude: Double,
         maxResults: Int,
         block: (List<Address>?, Throwable?) -> Unit
     ) {
