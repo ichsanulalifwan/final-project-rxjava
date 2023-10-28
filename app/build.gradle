@@ -72,7 +72,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
 
     // Google Play services library
-    implementation "com.google.android.gms:play-services-auth:$googleplay_version"
+    implementation "com.google.android.gms:play-services-auth:$gms_auth_version"
 }
 
 sonarqube {
