@@ -55,7 +55,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$gms_location_version"
 
     // RxJava
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$reactivestreams_version"
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    api "androidx.lifecycle:lifecycle-reactivestreams:$reactivestreams_version"
 }
