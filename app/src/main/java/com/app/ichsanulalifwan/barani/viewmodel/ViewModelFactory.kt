@@ -31,9 +31,9 @@ class ViewModelFactory private constructor(private val repository: NewsRepositor
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(application: Application): ViewModelFactory =
+        fun getInstance(application: Application, isMock: Boolean): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(application)).apply {
+                instance ?: ViewModelFactory(Injection.provideRepository(application, isMock)).apply {
                     instance = this
                 }
             }

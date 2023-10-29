@@ -12,6 +12,9 @@ import io.reactivex.Single
 @Dao
 interface NewsDao {
 
+    /**
+     * Load data.
+     */
     @Query("SELECT * FROM news_entities")
     fun allByFlowable(): Flowable<List<NewsEntity>>
 
