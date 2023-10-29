@@ -16,8 +16,6 @@
             <option value="$PROJECT_DIR$/benchmark" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/kotlin-flow" />
-            <option value="$PROJECT_DIR$/reactor" />
-            <option value="$PROJECT_DIR$/rxjava" />
           </set>
         </option>
       </GradleProjectSettings>
