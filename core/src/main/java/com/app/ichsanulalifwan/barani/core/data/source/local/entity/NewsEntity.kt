@@ -1,5 +1,6 @@
 package com.app.ichsanulalifwan.barani.core.data.source.local.entity
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,29 +9,29 @@ import androidx.room.PrimaryKey
 data class NewsEntity(
     @PrimaryKey
     @ColumnInfo(name = "title")
-    val title: String? = "",
+    var title: String = "",
 
     @ColumnInfo(name = "author")
-    val author: String? = "",
+    var author: String? = "",
 
     @ColumnInfo(name = "date")
-    val date: String? = "",
+    var date: String? = "",
 
     @ColumnInfo(name = "image")
-    val image: String? = "",
+    var image: String? = "",
 
     @ColumnInfo(name = "desc")
-    val desc: String? = "",
+    var desc: String? = "",
 
     @ColumnInfo(name = "url")
-    val url: String? = "",
+    var url: String? = "",
 
     @ColumnInfo(name = "content")
-    val content: String? = "",
+    var content: String? = "",
 
     @ColumnInfo(name = "sourceId")
-    val sourceId: String? = "",
+    var sourceId: String? = "",
 
     @ColumnInfo(name = "sourceName")
-    val sourceName: String? = "",
+    var sourceName: String? = "",
 )

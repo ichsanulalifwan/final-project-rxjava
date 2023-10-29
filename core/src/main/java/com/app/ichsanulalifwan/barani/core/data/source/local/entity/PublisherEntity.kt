@@ -8,23 +8,23 @@ import androidx.room.PrimaryKey
 data class PublisherEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: String = "",
+    var id: String = "",
 
     @ColumnInfo(name = "category")
-    val category: String = "",
+    var category: String = "",
 
     @ColumnInfo(name = "country")
-    val country: String = "",
+    var country: String = "",
 
     @ColumnInfo(name = "description")
-    val description: String = "",
+    var description: String = "",
 
     @ColumnInfo(name = "language")
-    val language: String = "",
+    var language: String = "",
 
     @ColumnInfo(name = "name")
-    val name: String = "",
+    var name: String = "",
 
     @ColumnInfo(name = "url")
-    val url: String = "",
+    var url: String = "",
 )
