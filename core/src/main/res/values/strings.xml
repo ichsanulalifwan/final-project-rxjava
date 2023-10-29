@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="location_permission_denied">This feature requires location information. You can grant this permission in the app settings.</string>
+    <string name="location_provider_off">It seems like your location provider is turned off.</string>
+    <string name="news_error">Could not load local news. Check your connection.</string>
+</resources>
