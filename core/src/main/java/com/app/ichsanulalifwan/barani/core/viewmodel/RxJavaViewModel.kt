@@ -2,11 +2,15 @@ package com.app.ichsanulalifwan.barani.core.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.toLiveData
 import com.app.ichsanulalifwan.barani.core.R
 import com.app.ichsanulalifwan.barani.core.data.location.getAddresses
 import com.app.ichsanulalifwan.barani.core.data.location.getLocationUpdates
 import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepository
 import com.app.ichsanulalifwan.barani.core.data.repository.news.NewsRepository
+import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -25,6 +29,13 @@ class RxJavaViewModel(
         getTopHeadlineNews()
         getNewsPublisher()
     }
+
+    override fun getNews(): LiveData<List<News>> = newsRepository.news
+        .map { entityList ->
+            DataMapper.mapNewsEntityToModel(entityList)
+        }
+        .subscribeOn(Schedulers.io())
+        .toLiveData()
 
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()
