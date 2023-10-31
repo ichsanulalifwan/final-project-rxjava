@@ -7,6 +7,7 @@ import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepos
 import com.app.ichsanulalifwan.barani.core.data.repository.news.NewsRepository
 import com.app.ichsanulalifwan.barani.core.di.Injection
 import com.app.ichsanulalifwan.barani.ui.beranda.BerandaViewModel
+import com.app.ichsanulalifwan.barani.ui.list.ListViewModel
 import com.app.ichsanulalifwan.barani.ui.profil.ProfilViewModel
 import com.app.ichsanulalifwan.barani.ui.report.ReportViewModel
 
@@ -24,6 +25,10 @@ class ViewModelFactory private constructor(
 
             modelClass.isAssignableFrom(BerandaViewModel::class.java) -> {
                 BerandaViewModel(application, newsRepository) as T
+            }
+
+            modelClass.isAssignableFrom(ListViewModel::class.java) -> {
+                ListViewModel(application, newsRepository) as T
             }
 
             modelClass.isAssignableFrom(ProfilViewModel::class.java) -> {
