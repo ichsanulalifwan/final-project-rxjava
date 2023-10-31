@@ -11,6 +11,7 @@ import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.databinding.FragmentProfilBinding
 import com.app.ichsanulalifwan.barani.ui.signin.SignInActivity
 import com.app.ichsanulalifwan.barani.utils.Preferences
+import com.app.ichsanulalifwan.barani.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
@@ -29,8 +30,13 @@ class ProfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
-        profilViewModel =
-            ViewModelProvider(this)[ProfilViewModel::class.java]
+        profilViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory.getInstance(
+                application = requireActivity().application,
+                isMock = false,
+            )
+        )[ProfilViewModel::class.java]
         return binding.root
     }
 
