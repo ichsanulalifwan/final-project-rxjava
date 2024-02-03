@@ -24,8 +24,9 @@ internal fun getAddresses(
             if (addresses != null) {
                 trySend(addresses)
             } else {
-                val exception =
-                    checkNotNull(throwable) { "If the result is null, the exception cannot be." }
+                val exception = checkNotNull(throwable) {
+                    "If the result is null, the exception cannot be."
+                }
                 close(exception)
             }
         }
@@ -35,5 +36,7 @@ internal fun getAddresses(
 
     awaitClose { }
 }.catch { throwable ->
-    throw checkNotNull(throwable) { "If the result is null, the exception cannot be." }
+    throw checkNotNull(throwable) {
+        "If the result is null, the exception cannot be."
+    }
 }

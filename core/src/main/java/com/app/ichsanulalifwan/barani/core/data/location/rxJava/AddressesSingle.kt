@@ -20,8 +20,9 @@ internal fun getAddresses(
             if (addresses != null) {
                 emitter.onSuccess(addresses)
             } else {
-                val exception =
-                    checkNotNull(throwable) { "If the result is null, the exception cannot be." }
+                val exception = checkNotNull(throwable) {
+                    "If the result is null, the exception cannot be."
+                }
                 emitter.onError(exception)
             }
         }

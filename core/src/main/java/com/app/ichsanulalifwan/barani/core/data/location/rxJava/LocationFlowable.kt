@@ -1,6 +1,7 @@
 package com.app.ichsanulalifwan.barani.core.data.location.rxJava
 
 import android.annotation.SuppressLint
+import android.location.Location
 import android.os.Looper
 import com.app.ichsanulalifwan.barani.core.utils.throwable.LocationProviderNotAvailableException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -15,7 +16,7 @@ import io.reactivex.Flowable
 internal fun getLocationUpdates(
     locationServiceClient: FusedLocationProviderClient,
     locationRequest: LocationRequest,
-) = Flowable.create({ emitter ->
+): Flowable<Location> = Flowable.create({ emitter ->
 
     var locationCheck = false
 
