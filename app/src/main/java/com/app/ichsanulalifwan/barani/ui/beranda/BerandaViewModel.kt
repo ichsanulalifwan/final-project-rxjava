@@ -7,6 +7,7 @@ import androidx.lifecycle.toLiveData
 import com.app.ichsanulalifwan.barani.core.R
 import com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava.RxJavaNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.model.Publisher
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,6 +31,10 @@ class BerandaViewModel(
         }
         .subscribeOn(Schedulers.io())
         .toLiveData()
+
+    override fun getPublishers(): LiveData<List<Publisher>> {
+        TODO("Not yet implemented")
+    }
 
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()

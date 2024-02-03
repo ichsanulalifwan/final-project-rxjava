@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.app.ichsanulalifwan.barani.core.R
 import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.model.Publisher
 import com.app.ichsanulalifwan.barani.core.utils.NewsTimer
 import com.app.ichsanulalifwan.barani.core.utils.throwable.LocationProviderNotAvailableException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -46,6 +47,8 @@ abstract class BaseViewModel(private val application: Application) : ViewModel()
     fun getIsLoading(): LiveData<Boolean> = isLoading
 
     abstract fun getNews(): LiveData<List<News>>
+    abstract fun getPublishers(): LiveData<List<Publisher>>
+
     protected abstract fun getTopHeadlineNews()
     protected abstract fun getNewsPublisher()
     protected abstract fun startUpdatesForEverythingNews()
