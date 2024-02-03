@@ -1,19 +1,18 @@
 package com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava
 
-import com.app.ichsanulalifwan.barani.core.BuildConfig
 import com.app.ichsanulalifwan.barani.core.data.source.local.entity.NewsEntity
 import com.app.ichsanulalifwan.barani.core.data.source.local.entity.PublisherEntity
 import com.app.ichsanulalifwan.barani.core.data.source.local.room.NewsDao
-import com.app.ichsanulalifwan.barani.core.data.source.remote.network.ApiService
+import com.app.ichsanulalifwan.barani.core.data.source.remote.network.rxjava.RxJavaNewsApiService
 import com.app.ichsanulalifwan.barani.core.utils.toNewsEntity
 import com.app.ichsanulalifwan.barani.core.utils.toPublisherEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
-class RxJavaNewsRepository constructor(
-    private val remoteDataSource: ApiService,
-    private val localDataSource: NewsDao
+class RxJavaNewsRepository(
+    private val remoteDataSource: RxJavaNewsApiService,
+    private val localDataSource: NewsDao,
 ) {
 
     val news: Flowable<List<NewsEntity>>
@@ -23,7 +22,7 @@ class RxJavaNewsRepository constructor(
         get() = localDataSource.allPublisherByFlowable()
 
     fun getTopHeadlineNews(countryCode: String, category: String): Completable =
-        remoteDataSource.getTopHeadlines(countryCode, category, API_KEY)
+        remoteDataSource.getTopHeadlines(country = countryCode, category = category)
             .flatMapCompletable { newsResponse ->
                 insertNewsToDatabase(newsResponse.articles.map {
                     it.toNewsEntity()
@@ -31,7 +30,7 @@ class RxJavaNewsRepository constructor(
             }
 
     fun getEverythingNews(countryCode: String): Completable =
-        remoteDataSource.getEverything(countryCode, API_KEY)
+        remoteDataSource.getEverything(country = countryCode)
             .flatMapCompletable { response ->
                 insertNewsToDatabase(response.articles.map {
                     it.toNewsEntity()
@@ -39,7 +38,7 @@ class RxJavaNewsRepository constructor(
             }
 
     fun getNewsPublisher(): Completable =
-        remoteDataSource.getNewsPublishers(API_KEY)
+        remoteDataSource.getNewsPublishers()
             .flatMapCompletable { response ->
                 insertPublisherToDatabase(response.sources.map {
                     it.toPublisherEntity()
@@ -48,29 +47,29 @@ class RxJavaNewsRepository constructor(
 
     fun insertNewsToDatabase(newsEntities: List<NewsEntity>): Completable =
         localDataSource.deleteNewsAsCompletable()
-            .andThen(localDataSource.insertNewsAsCompletable(newsEntities))
-            .subscribeOn(Schedulers.io())
+            .andThen(
+                localDataSource.insertNewsAsCompletable(newsEntities = newsEntities)
+            ).subscribeOn(Schedulers.io())
 
     fun insertPublisherToDatabase(publisherEntities: List<PublisherEntity>): Completable =
-        localDataSource.deleteNewsAsCompletable()
-            .andThen(localDataSource.insertPublisherAsCompletable(publisherEntities))
-            .subscribeOn(Schedulers.io())
+        localDataSource.deletePublisherAsCompletable()
+            .andThen(
+                localDataSource.insertPublisherAsCompletable(publisherEntities = publisherEntities)
+            ).subscribeOn(Schedulers.io())
 
 
     companion object {
         @Volatile
         private var instance: RxJavaNewsRepository? = null
 
-        private const val API_KEY = BuildConfig.API_KEY
-
         fun getInstance(
-            remoteDataSource: ApiService,
+            remoteDataSource: RxJavaNewsApiService,
             localDataSource: NewsDao,
         ): RxJavaNewsRepository =
             instance ?: synchronized(this) {
                 instance ?: RxJavaNewsRepository(
-                    remoteDataSource,
-                    localDataSource,
+                    remoteDataSource = remoteDataSource,
+                    localDataSource = localDataSource,
                 ).apply { instance = this }
             }
     }
