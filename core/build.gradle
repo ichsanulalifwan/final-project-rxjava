@@ -61,6 +61,7 @@ dependencies {
 
     // Kotlin Flow
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_flow_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_flow_version"
 
     // Reactor
     implementation "io.projectreactor:reactor-core:$reactor_version"
