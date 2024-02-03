@@ -25,6 +25,9 @@ android {
         targetSdk 33
 
         testInstrumentationRunner 'androidx.benchmark.junit4.AndroidBenchmarkRunner'
+
+        // Enable measuring on an emulator, or devices with low battery
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR,LOW-BATTERY"
     }
 
     testBuildType = "debug"
@@ -32,7 +35,7 @@ android {
     buildTypes {
         debug {
             // Since debuggable can't be modified by gradle for library modules,
-            // it must be done in a manifest - see src/androidTest/AndroidManifest.xml
+            // it must be done in a manifest - see src/androidTest/AndroidManifest.xml\
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
         }
@@ -106,14 +109,10 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.test.ext:junit:1.1.5'
-    implementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation "androidx.benchmark:benchmark-junit4:1.2.3"
-    androidTestImplementation 'org.testng:testng:6.9.6'
 }
 
 task benchmarkJsonToCsv {

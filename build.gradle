@@ -47,6 +47,12 @@ buildscript {
         rxjava_version = '2.2.21'
         rxandroid_version = '2.1.1'
         reactivestreams_version = '2.6.2'
+
+        // Kotlin Flow
+        kotlin_flow_version = '1.6.4'
+
+        // Reactor
+        reactor_version = '3.6.2'
     }
 
     dependencies {
