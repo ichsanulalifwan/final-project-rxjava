@@ -22,13 +22,13 @@ object DataMapper {
     fun mapNewsEntityToModel(input: List<NewsEntity>): List<News> {
         val newsList = ArrayList<News>()
         input.map {
-            newsList.add(it.toModel())
+            newsList.add(it.toNewsModel())
         }
 
         return newsList
     }
 
-    fun mapPublisherListToModel(input: List<SourceResponse>): List<Publisher> {
+    fun mapPublisherListToModel(input: List<PublisherEntity>): List<Publisher> {
         val publisherList = ArrayList<Publisher>()
         input.map {
             publisherList.add(it.toPublisherModel())
@@ -63,14 +63,14 @@ internal fun ArticlesItemResponse.toNewsEntity() = NewsEntity(
     sourceName = source?.name ?: "",
 )
 
-internal fun SourceResponse.toPublisherModel() = Publisher(
-    category = category ?: "",
-    country = country ?: "",
-    description = description ?: "",
-    id = id ?: "",
-    language = language ?: "",
-    name = name ?: "",
-    url = url ?: "",
+internal fun PublisherEntity.toPublisherModel() = Publisher(
+    category = category,
+    country = country,
+    description = description,
+    id = id,
+    language = language,
+    name = name,
+    url = url,
 )
 
 internal fun SourceResponse.toPublisherEntity() = PublisherEntity(
@@ -83,10 +83,10 @@ internal fun SourceResponse.toPublisherEntity() = PublisherEntity(
     url = url ?: "",
 )
 
-internal fun NewsEntity.toModel() = News(
+internal fun NewsEntity.toNewsModel() = News(
     title = title,
     author = author ?: "",
-    date =  date ?: "",
+    date = date ?: "",
     image = image ?: "",
     desc = desc ?: "",
     url = url ?: "",
