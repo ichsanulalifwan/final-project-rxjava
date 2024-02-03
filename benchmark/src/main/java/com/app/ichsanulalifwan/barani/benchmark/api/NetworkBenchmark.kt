@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.benchmark
+package com.app.ichsanulalifwan.barani.benchmark.api
 
 import org.junit.Test
 
