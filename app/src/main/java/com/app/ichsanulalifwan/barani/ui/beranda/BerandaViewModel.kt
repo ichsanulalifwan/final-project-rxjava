@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.toLiveData
 import com.app.ichsanulalifwan.barani.core.R
-import com.app.ichsanulalifwan.barani.core.data.repository.news.NewsRepository
+import com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava.RxJavaNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 
 class BerandaViewModel(
     application: Application,
-    private val newsRepository: NewsRepository,
+    private val rxJavaNewsRepository: RxJavaNewsRepository,
 ) : BaseViewModel(application) {
 
     private val disposableBag = CompositeDisposable()
@@ -24,7 +24,7 @@ class BerandaViewModel(
         getTopHeadlineNews()
     }
 
-    override fun getNews(): LiveData<List<News>> = newsRepository.news
+    override fun getNews(): LiveData<List<News>> = rxJavaNewsRepository.news
         .map { entityList ->
             DataMapper.mapNewsEntityToModel(entityList)
         }
@@ -33,7 +33,7 @@ class BerandaViewModel(
 
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()
-        newsRepository.getTopHeadlineNews("us", "health")
+        rxJavaNewsRepository.getTopHeadlineNews("us", "health")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.value = true }

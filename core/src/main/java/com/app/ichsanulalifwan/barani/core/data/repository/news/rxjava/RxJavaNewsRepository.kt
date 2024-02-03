@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.core.data.repository.news
+package com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava
 
 import com.app.ichsanulalifwan.barani.core.BuildConfig
 import com.app.ichsanulalifwan.barani.core.data.source.local.entity.NewsEntity
@@ -11,7 +11,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
-class NewsRepository constructor(
+class RxJavaNewsRepository constructor(
     private val remoteDataSource: ApiService,
     private val localDataSource: NewsDao
 ) {
@@ -59,16 +59,16 @@ class NewsRepository constructor(
 
     companion object {
         @Volatile
-        private var instance: NewsRepository? = null
+        private var instance: RxJavaNewsRepository? = null
 
         private const val API_KEY = BuildConfig.API_KEY
 
         fun getInstance(
             remoteDataSource: ApiService,
             localDataSource: NewsDao,
-        ): NewsRepository =
+        ): RxJavaNewsRepository =
             instance ?: synchronized(this) {
-                instance ?: NewsRepository(
+                instance ?: RxJavaNewsRepository(
                     remoteDataSource,
                     localDataSource,
                 ).apply { instance = this }

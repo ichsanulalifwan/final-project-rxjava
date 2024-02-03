@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.toLiveData
 import com.app.ichsanulalifwan.barani.core.R
-import com.app.ichsanulalifwan.barani.core.data.location.getAddresses
-import com.app.ichsanulalifwan.barani.core.data.location.getLocationUpdates
+import com.app.ichsanulalifwan.barani.core.data.location.rxJava.getAddresses
+import com.app.ichsanulalifwan.barani.core.data.location.rxJava.getLocationUpdates
 import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepository
-import com.app.ichsanulalifwan.barani.core.data.repository.news.NewsRepository
+import com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava.RxJavaNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 
 class RxJavaViewModel(
     application: Application,
-    private val newsRepository: NewsRepository,
+    private val rxJavaNewsRepository: RxJavaNewsRepository,
     private val addressRepository: AddressRepository,
 ) : BaseViewModel(application) {
 
@@ -30,7 +30,7 @@ class RxJavaViewModel(
         getNewsPublisher()
     }
 
-    override fun getNews(): LiveData<List<News>> = newsRepository.news
+    override fun getNews(): LiveData<List<News>> = rxJavaNewsRepository.news
         .map { entityList ->
             DataMapper.mapNewsEntityToModel(entityList)
         }
@@ -39,7 +39,7 @@ class RxJavaViewModel(
 
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()
-        newsRepository.getTopHeadlineNews("us", "health")
+        rxJavaNewsRepository.getTopHeadlineNews("us", "health")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.value = true }
@@ -65,7 +65,7 @@ class RxJavaViewModel(
             .flatMapSingle { location -> getAddresses(addressRepository, location, 1) }
             .flatMapCompletable { addresses ->
                 val countryCode = addresses.first().countryCode
-                newsRepository.getEverythingNews(countryCode).doOnComplete {
+                rxJavaNewsRepository.getEverythingNews(countryCode).doOnComplete {
                     stopEverythingNewsTimer()
                     isLoading.postValue(false)
                     isLocalNews.postValue(true)
@@ -83,7 +83,7 @@ class RxJavaViewModel(
 
     override fun getNewsPublisher() {
         startSourcesNewsTimer()
-        newsRepository.getNewsPublisher()
+        rxJavaNewsRepository.getNewsPublisher()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.value = true }
