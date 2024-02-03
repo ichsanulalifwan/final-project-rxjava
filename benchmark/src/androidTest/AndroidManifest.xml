@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.app.ichsanulalifwan.barani.benchmark">
 
     <!--
       Important: disable debugging for accurate performance results
@@ -11,5 +12,11 @@
     <application
         android:debuggable="false"
         tools:ignore="HardcodedDebugMode"
-        tools:replace="android:debuggable" />
+        tools:replace="android:debuggable"
+        android:requestLegacyExternalStorage="true">
+
+        <profileable android:shell="true" />
+
+    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
