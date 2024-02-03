@@ -18,17 +18,7 @@ plugins {
 }
 
 android {
-    namespace 'com.app.ichsanulalifwan.barani.benchmark'
-    compileSdk 33
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
@@ -37,21 +27,83 @@ android {
         testInstrumentationRunner 'androidx.benchmark.junit4.AndroidBenchmarkRunner'
     }
 
+    testBuildType = "debug"
+
     buildTypes {
-        // This benchmark buildType is used for benchmarking, and should function like your
-        // release build (for example, with minification on). It's signed with a debug key
-        // for easy local/CI testing.
-        benchmark {
-            debuggable = false
-            signingConfig = debug.signingConfig
-            matchingFallbacks = ["release"]
+        debug {
+            // Since debuggable can't be modified by gradle for library modules,
+            // it must be done in a manifest - see src/androidTest/AndroidManifest.xml
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
+        }
+
+        release {
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
-    experimentalProperties["android.experimental.self-instrumenting"] = true
+//    experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 
+//android {
+//    namespace 'com.app.ichsanulalifwan.barani.benchmark'
+//    compileSdk 33
+//
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+//    }
+//
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//    }
+//
+//    defaultConfig {
+//        minSdk 24
+//        targetSdk 33
+//        versionCode 1
+//        versionName "1.0"
+//
+//        testInstrumentationRunner 'androidx.benchmark.junit4.AndroidBenchmarkRunner'
+//    }
+//
+//    testBuildType = "debug"
+//
+//
+//
+//    buildTypes {
+//        // This benchmark buildType is used for benchmarking, and should function like your
+//        // release build (for example, with minification on). It's signed with a debug key
+//        // for easy local/CI testing.
+////        benchmark {
+////            debuggable = false
+////            signingConfig = debug.signingConfig
+////            matchingFallbacks = ["release"]
+////        }
+//
+//        debug {
+//            // Since debuggable can't be modified by gradle for library modules,
+//            // it must be done in a manifest - see src/androidTest/AndroidManifest.xml
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
+//        }
+//
+//        release {
+//        }
+//    }
+//
+//    experimentalProperties["android.experimental.self-instrumenting"] = true
+//}
+
 dependencies {
+    implementation project(":core")
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.test.ext:junit:1.1.5'
@@ -60,15 +112,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.benchmark:benchmark-junit4:1.2.0'
-
-    implementation project(path: ':core')
-}
-
-androidComponents {
-    beforeVariants(selector().all()) {
-        enabled = buildType == "benchmark"
-    }
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:1.2.3"
+    androidTestImplementation 'org.testng:testng:6.9.6'
 }
 
 task benchmarkJsonToCsv {

@@ -19,5 +19,4 @@ dependencyResolutionManagement {
 rootProject.name = "FinalProject"
 include ':app'
 include ':core'
-include ':kotlin-flow'
 include ':benchmark'
