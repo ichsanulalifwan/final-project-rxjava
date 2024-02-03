@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.barani.core.viewmodel
+package com.app.ichsanulalifwan.barani.core.viewmodel.rxjava
 
 import android.app.Application
 import android.util.Log
@@ -10,7 +10,9 @@ import com.app.ichsanulalifwan.barani.core.data.location.rxJava.getLocationUpdat
 import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepository
 import com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava.RxJavaNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
+import com.app.ichsanulalifwan.barani.core.model.Publisher
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
+import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -18,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
 
 class RxJavaViewModel(
     application: Application,
-    private val rxJavaNewsRepository: RxJavaNewsRepository,
+    private val newsRepository: RxJavaNewsRepository,
     private val addressRepository: AddressRepository,
 ) : BaseViewModel(application) {
 
@@ -30,19 +32,29 @@ class RxJavaViewModel(
         getNewsPublisher()
     }
 
-    override fun getNews(): LiveData<List<News>> = rxJavaNewsRepository.news
+    override fun getNews(): LiveData<List<News>> = newsRepository.news
         .map { entityList ->
             DataMapper.mapNewsEntityToModel(entityList)
         }
         .subscribeOn(Schedulers.io())
         .toLiveData()
 
+    override fun getPublishers(): LiveData<List<Publisher>> = newsRepository.publishers
+        .map { entityList ->
+            DataMapper.mapPublisherListToModel(entityList)
+        }
+        .subscribeOn(Schedulers.io())
+        .toLiveData()
+
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()
-        rxJavaNewsRepository.getTopHeadlineNews("us", "health")
+
+        newsRepository.getTopHeadlineNews(countryCode = "us", category = "health")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.value = true }
+            .doOnSubscribe {
+                isLoading.value = true
+            }
             .doFinally {
                 stopTopHeadlinesNewsTimer()
                 isLoading.value = false
@@ -53,28 +65,46 @@ class RxJavaViewModel(
                     message.value = context.getString(R.string.news_error)
                     Log.e(LOG_TAG, "Could not fetch news", throwable)
                 }
-            ).also { disposableBag.add(it) }
+            ).also {
+                disposableBag.add(it)
+            }
     }
 
     override fun startUpdatesForEverythingNews() {
         startEverythingNewsTimer()
+
         locationDisposable?.dispose()
-        locationDisposable = getLocationUpdates(locationServiceClient, locationRequest)
+        locationDisposable = getLocationUpdates(
+            locationServiceClient = locationServiceClient,
+            locationRequest = locationRequest,
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .flatMapSingle { location -> getAddresses(addressRepository, location, 1) }
+            .flatMapSingle { location ->
+                getAddresses(
+                    addressRepository = addressRepository,
+                    location = location,
+                    maxResults = 1,
+                )
+            }
             .flatMapCompletable { addresses ->
                 val countryCode = addresses.first().countryCode
-                rxJavaNewsRepository.getEverythingNews(countryCode).doOnComplete {
+                newsRepository.getEverythingNews(countryCode = countryCode).doOnComplete {
                     stopEverythingNewsTimer()
                     isLoading.postValue(false)
                     isLocalNews.postValue(true)
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.value = true }
-            .subscribe({}, { handleEverythingNewsError(it) })
-            .also { disposableBag.add(it) }
+            .doOnSubscribe {
+                isLoading.value = true
+            }
+            .subscribe({}, {
+                handleEverythingNewsError(it)
+            })
+            .also {
+                disposableBag.add(it)
+            }
     }
 
     override fun cancelUpdatesForEverythingNews() {
@@ -83,10 +113,13 @@ class RxJavaViewModel(
 
     override fun getNewsPublisher() {
         startSourcesNewsTimer()
-        rxJavaNewsRepository.getNewsPublisher()
+
+        newsRepository.getNewsPublisher()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.value = true }
+            .doOnSubscribe {
+                isLoading.value = true
+            }
             .doFinally {
                 stopSourcesNewsTimer()
                 isLoading.value = false
@@ -97,7 +130,10 @@ class RxJavaViewModel(
                     message.value = context.getString(R.string.news_error)
                     Log.e(LOG_TAG, "Could not fetch publisher", throwable)
                 }
-            ).also { disposableBag.add(it) }
+            )
+            .also {
+                disposableBag.add(it)
+            }
     }
 
     override fun onCleared() {
