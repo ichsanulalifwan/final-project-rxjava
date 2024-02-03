@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="deploymentTargetDropDown">
-    <targetSelectedWithDropDown>
-      <Target>
-        <type value="QUICK_BOOT_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="$USER_HOME$/.android/avd/Pixel_4_API_29_9_Android_10_.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-    </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-08-25T13:43:32.331594Z" />
+    <value>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="fetchNewsSingleRequest()">
+        <State />
+      </entry>
+      <entry key="fetchNewsThreeSequentialRequests()">
+        <State />
+      </entry>
+    </value>
   </component>
 </project>
