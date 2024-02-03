@@ -21,22 +21,21 @@ class FlowNewsRepository(
 
     val publishers: Flow<List<PublisherEntity>> = localDataSource.allPublisherByFlow()
 
-    suspend fun getTopHeadlineNewsFlow(countryCode: String, category: String) = flow<Unit> {
+    suspend fun getTopHeadlineNews(countryCode: String, category: String) = flow<Unit> {
         val newsResponse = remoteDataSource.getTopHeadlines(
             country = countryCode,
             category = category,
         )
         val articles = newsResponse.single().articles
-        insertNewsToDatabase(articles.map {
+        insertNewsToDatabase(newsEntities = articles.map {
             it.toNewsEntity()
         })
     }.flowOn(Dispatchers.IO)
 
-
     suspend fun getEverythingNews(countryCode: String) = flow<Unit> {
         val response = remoteDataSource.getEverything(country = countryCode)
         val articles = response.single().articles
-        insertNewsToDatabase(articles.map {
+        insertNewsToDatabase(newsEntities = articles.map {
             it.toNewsEntity()
         })
     }.flowOn(Dispatchers.IO)
@@ -44,7 +43,7 @@ class FlowNewsRepository(
     suspend fun getNewsPublisher() = flow<Unit> {
         val response = remoteDataSource.getNewsPublishers()
         val sources = response.single().sources
-        insertPublisherToDatabase(sources.map {
+        insertPublisherToDatabase(publisherEntities = sources.map {
             it.toPublisherEntity()
         })
     }.flowOn(Dispatchers.IO)
@@ -52,14 +51,14 @@ class FlowNewsRepository(
     suspend fun insertNewsToDatabase(newsEntities: List<NewsEntity>) {
         localDataSource.apply {
             deleteAllNews()
-            insertNews(newsEntities)
+            insertNews(newsEntities = newsEntities)
         }
     }
 
     suspend fun insertPublisherToDatabase(publisherEntities: List<PublisherEntity>) {
         localDataSource.apply {
             deleteAllPublishers()
-            insertPublisher(publisherEntities)
+            insertPublisher(publisherEntities = publisherEntities)
         }
     }
 

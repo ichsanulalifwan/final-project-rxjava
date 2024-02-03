@@ -24,7 +24,7 @@ class RxJavaNewsRepository(
     fun getTopHeadlineNews(countryCode: String, category: String): Completable =
         remoteDataSource.getTopHeadlines(country = countryCode, category = category)
             .flatMapCompletable { newsResponse ->
-                insertNewsToDatabase(newsResponse.articles.map {
+                insertNewsToDatabase(newsEntities = newsResponse.articles.map {
                     it.toNewsEntity()
                 })
             }
@@ -32,7 +32,7 @@ class RxJavaNewsRepository(
     fun getEverythingNews(countryCode: String): Completable =
         remoteDataSource.getEverything(country = countryCode)
             .flatMapCompletable { response ->
-                insertNewsToDatabase(response.articles.map {
+                insertNewsToDatabase(newsEntities = response.articles.map {
                     it.toNewsEntity()
                 })
             }
@@ -40,7 +40,7 @@ class RxJavaNewsRepository(
     fun getNewsPublisher(): Completable =
         remoteDataSource.getNewsPublishers()
             .flatMapCompletable { response ->
-                insertPublisherToDatabase(response.sources.map {
+                insertPublisherToDatabase(publisherEntities = response.sources.map {
                     it.toPublisherEntity()
                 })
             }
@@ -56,7 +56,6 @@ class RxJavaNewsRepository(
             .andThen(
                 localDataSource.insertPublisherAsCompletable(publisherEntities = publisherEntities)
             ).subscribeOn(Schedulers.io())
-
 
     companion object {
         @Volatile

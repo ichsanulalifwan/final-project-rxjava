@@ -23,7 +23,7 @@ class ReactorNewsRepository(
     fun getTopHeadlineNews(countryCode: String, category: String): Mono<Void> =
         remoteDataSource.getTopHeadlines(country = countryCode, category = category)
             .flatMap { newsResponse ->
-                insertNewsToDatabase(newsResponse.articles.map {
+                insertNewsToDatabase(newsEntities = newsResponse.articles.map {
                     it.toNewsEntity()
                 })
             }
@@ -31,7 +31,7 @@ class ReactorNewsRepository(
     fun getEverythingNews(countryCode: String): Mono<Void> =
         remoteDataSource.getEverything(country = countryCode)
             .flatMap { response ->
-                insertNewsToDatabase(response.articles.map {
+                insertNewsToDatabase(newsEntities = response.articles.map {
                     it.toNewsEntity()
                 })
             }
@@ -39,7 +39,7 @@ class ReactorNewsRepository(
     fun getNewsPublisher(): Mono<Void> =
         remoteDataSource.getNewsPublishers()
             .flatMap { response ->
-                insertPublisherToDatabase(response.sources.map {
+                insertPublisherToDatabase(publisherEntities = response.sources.map {
                     it.toPublisherEntity()
                 })
             }
@@ -47,13 +47,13 @@ class ReactorNewsRepository(
     fun insertNewsToDatabase(newsEntities: List<NewsEntity>): Mono<Void> =
         localDataSource.deleteAllNewsAsMono()
             .then(
-                localDataSource.insertNewsAsMono(newsEntities)
+                localDataSource.insertNewsAsMono(newsEntities = newsEntities)
             )
 
     fun insertPublisherToDatabase(publisherEntities: List<PublisherEntity>): Mono<Void> =
         localDataSource.deleteAllPublishersAsMono()
             .then(
-                localDataSource.insertPublisherAsMono(publisherEntities)
+                localDataSource.insertPublisherAsMono(publisherEntities = publisherEntities)
             )
 
     companion object {
