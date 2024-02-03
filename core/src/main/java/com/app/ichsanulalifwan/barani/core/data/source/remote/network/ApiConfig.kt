@@ -1,5 +1,6 @@
 package com.app.ichsanulalifwan.barani.core.data.source.remote.network
 
+import com.app.ichsanulalifwan.barani.core.data.source.remote.network.rxjava.RxJavaNewsApiService
 import com.app.ichsanulalifwan.barani.core.mock.MockInterceptor
 import com.app.ichsanulalifwan.barani.core.utils.Constant.BASE_URL
 import okhttp3.OkHttpClient
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiConfig {
 
-    fun getApiService(): ApiService {
+    fun getApiService(): RxJavaNewsApiService {
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
@@ -27,10 +28,10 @@ object ApiConfig {
             .client(client)
             .build()
 
-        return retrofit.create(ApiService::class.java)
+        return retrofit.create(RxJavaNewsApiService::class.java)
     }
 
-    fun getMockApiService(): ApiService {
+    fun getMockApiService(): RxJavaNewsApiService {
 
         val mockClient = OkHttpClient.Builder()
             .addInterceptor(MockInterceptor())
@@ -43,7 +44,7 @@ object ApiConfig {
             .client(mockClient)
             .build()
 
-        return retrofit.create(ApiService::class.java)
+        return retrofit.create(RxJavaNewsApiService::class.java)
     }
 
 }
