@@ -4,7 +4,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 fun Request.getMockedResponse(): Response {
 
@@ -15,11 +15,10 @@ fun Request.getMockedResponse(): Response {
         else -> throw IllegalArgumentException("There are no mocked responses for this URL : $url")
     }
 
-    val body = ResponseBody.create("application/json".toMediaType(), mockedResponse.body)
     return Response.Builder()
         .request(this)
         .code(200)
-        .body(body)
+        .body(mockedResponse.body.toResponseBody("application/json".toMediaType()))
         .message(url)
         .protocol(Protocol.HTTP_1_1)
         .build()
