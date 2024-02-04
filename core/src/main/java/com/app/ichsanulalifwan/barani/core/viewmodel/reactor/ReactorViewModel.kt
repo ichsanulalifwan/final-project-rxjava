@@ -31,17 +31,19 @@ class ReactorViewModel(
         getNewsPublisher()
     }
 
-    override fun getNews(): LiveData<List<News>> = newsRepository.news
-        .map { entityList ->
-            DataMapper.mapNewsEntityToModel(entityList)
-        }
-        .toLiveData()
+    override fun getNews(): LiveData<List<News>> = TODO()
+//    newsRepository.news
+//        .map { entityList ->
+//            DataMapper.mapNewsEntityToModel(entityList)
+//        }
+//        .toLiveData()
 
-    override fun getPublishers(): LiveData<List<Publisher>> = newsRepository.publishers
-        .map { entityList ->
-            DataMapper.mapPublisherListToModel(entityList)
-        }
-        .toLiveData()
+    override fun getPublishers(): LiveData<List<Publisher>> = TODO()
+//        newsRepository.publishers
+//        .map { entityList ->
+//            DataMapper.mapPublisherListToModel(entityList)
+//        }
+//        .toLiveData()
 
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()

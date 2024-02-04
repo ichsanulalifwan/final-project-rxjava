@@ -9,8 +9,6 @@ import com.app.ichsanulalifwan.barani.core.data.source.local.entity.PublisherEnt
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import kotlinx.coroutines.flow.Flow
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 
 @Dao
 interface NewsDao {
@@ -74,23 +72,23 @@ interface NewsDao {
      * Load data.
      */
     @Query("SELECT * FROM news_entities")
-    fun allNewsByFlux(): Flux<List<NewsEntity>>
+    fun allNewsByFlux(): Flowable<List<NewsEntity>>
 
     @Query("SELECT * FROM publisher_entities")
-    fun allPublisherByFlux(): Flux<List<PublisherEntity>>
+    fun allPublisherByFlux(): Flowable<List<PublisherEntity>>
 
     /**
      * Insert data.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNewsAsMono(newsEntities: List<NewsEntity>): Mono<Void>
+    fun insertNewsAsMono(newsEntities: List<NewsEntity>): Completable
 
     @Query("DELETE FROM news_entities")
-    fun deleteAllNewsAsMono(): Mono<Void>
+    fun deleteAllNewsAsMono(): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPublisherAsMono(publisherEntities: List<PublisherEntity>): Mono<Void>
+    fun insertPublisherAsMono(publisherEntities: List<PublisherEntity>): Completable
 
     @Query("DELETE FROM publisher_entities")
-    fun deleteAllPublishersAsMono(): Mono<Void>
+    fun deleteAllPublishersAsMono(): Completable
 }

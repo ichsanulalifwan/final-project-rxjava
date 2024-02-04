@@ -8,6 +8,8 @@ import com.app.ichsanulalifwan.barani.core.utils.toNewsEntity
 import com.app.ichsanulalifwan.barani.core.utils.toPublisherEntity
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.kotlin.adapter.rxjava.toMono
+import reactor.kotlin.core.publisher.toMono
 
 class ReactorNewsRepository(
     private val remoteDataSource: ReactorNewsApiService,
@@ -15,10 +17,10 @@ class ReactorNewsRepository(
 ) {
 
     val news: Flux<List<NewsEntity>>
-        get() = localDataSource.allNewsByFlux()
+        get() = Flux.from(localDataSource.allNewsByFlux())
 
     val publishers: Flux<List<PublisherEntity>>
-        get() = localDataSource.allPublisherByFlux()
+        get() = Flux.from(localDataSource.allPublisherByFlux())
 
     fun getTopHeadlineNews(countryCode: String, category: String): Mono<Void> =
         remoteDataSource.getTopHeadlines(country = countryCode, category = category)
@@ -45,16 +47,19 @@ class ReactorNewsRepository(
             }
 
     fun insertNewsToDatabase(newsEntities: List<NewsEntity>): Mono<Void> =
-        localDataSource.deleteAllNewsAsMono()
-            .then(
-                localDataSource.insertNewsAsMono(newsEntities = newsEntities)
-            )
+        Mono.defer {
+            localDataSource.deleteAllNewsAsMono().toMono()
+                .then(localDataSource.insertNewsAsMono(newsEntities = newsEntities).toMono())
+        }
 
     fun insertPublisherToDatabase(publisherEntities: List<PublisherEntity>): Mono<Void> =
-        localDataSource.deleteAllPublishersAsMono()
-            .then(
-                localDataSource.insertPublisherAsMono(publisherEntities = publisherEntities)
-            )
+        Mono.defer {
+            localDataSource.deleteAllPublishersAsMono().toMono()
+                .then(
+                    localDataSource.insertPublisherAsMono(publisherEntities = publisherEntities)
+                        .toMono()
+                )
+        }
 
     companion object {
         @Volatile

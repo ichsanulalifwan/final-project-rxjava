@@ -64,5 +64,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_flow_version"
 
     // Reactor
-    implementation "io.projectreactor:reactor-core:$reactor_version"
+    implementation "io.projectreactor:reactor-core:$reactor_core_version"
+    implementation "io.projectreactor.kotlin:reactor-kotlin-extensions:$reactor_ktx_version"
 }
