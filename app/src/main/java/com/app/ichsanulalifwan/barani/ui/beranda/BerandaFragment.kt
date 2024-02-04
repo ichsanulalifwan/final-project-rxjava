@@ -14,12 +14,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
-import com.app.ichsanulalifwan.barani.core.utils.DataMapper
-import com.app.ichsanulalifwan.barani.core.viewmodel.BerandaViewModel
 import com.app.ichsanulalifwan.barani.databinding.FragmentBerandaBinding
 import com.app.ichsanulalifwan.barani.ui.adapter.DataAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.KknAdapter
-import com.google.firebase.database.*
+import com.app.ichsanulalifwan.barani.viewmodel.ViewModelFactory
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class BerandaFragment : Fragment() {
 
@@ -37,8 +40,13 @@ class BerandaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBerandaBinding.inflate(inflater, container, false)
-        berandaViewModel =
-            ViewModelProvider(this)[BerandaViewModel::class.java]
+        berandaViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory.getInstance(
+                application = requireActivity().application,
+                isMock = false,
+            )
+        )[BerandaViewModel::class.java]
         return binding.root
     }
 
@@ -51,11 +59,11 @@ class BerandaFragment : Fragment() {
             kknAdapter = KknAdapter()
             newsAdapter = DataAdapter()
 
-            getData()
-            setNews()
-
             setupNewsRecyclerView()
             setupKknRecyclerView()
+
+            observeData()
+            getData()
 
             with(binding) {
                 cvItemInfo.setOnClickListener {
@@ -118,32 +126,37 @@ class BerandaFragment : Fragment() {
         })
     }
 
-    private fun setNews() {
-        berandaViewModel.getLatestNews().observe(viewLifecycleOwner) {
-            val newsList = DataMapper.mapResponseToModel(it)
-            newsAdapter.setData(newsList as ArrayList<News>)
-        }
+    private fun observeData() {
+        berandaViewModel.apply {
+            getNews().observe(viewLifecycleOwner) { news ->
+                newsAdapter.setData(news as ArrayList<News>)
+            }
 
-        berandaViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.apply {
-                    homeShimmer.visibility = View.VISIBLE
-                    rvKknReport.visibility = View.GONE
-                    tvNewsHeader.visibility = View.GONE
-                    textAllNews.visibility = View.GONE
-                    tvKknHeader.visibility = View.GONE
-                    btnKkn.visibility = View.GONE
-                }
-            } else {
-                binding.apply {
-                    homeShimmer.visibility = View.GONE
-                    rvKknReport.visibility = View.VISIBLE
-                    tvNewsHeader.visibility = View.VISIBLE
-                    textAllNews.visibility = View.VISIBLE
-                    tvKknHeader.visibility = View.VISIBLE
-                    btnKkn.visibility = View.VISIBLE
-                    checkDataKkn()
-                }
+            getIsLoading().observe(viewLifecycleOwner) { isLoading ->
+                renderShimmer(isLoading)
+            }
+        }
+    }
+
+    private fun renderShimmer(isLoading: Boolean) {
+        if (isLoading) {
+            binding.apply {
+                homeShimmer.visibility = View.VISIBLE
+                rvKknReport.visibility = View.GONE
+                tvNewsHeader.visibility = View.GONE
+                textAllNews.visibility = View.GONE
+                tvKknHeader.visibility = View.GONE
+                btnKkn.visibility = View.GONE
+            }
+        } else {
+            binding.apply {
+                homeShimmer.visibility = View.GONE
+                rvKknReport.visibility = View.VISIBLE
+                tvNewsHeader.visibility = View.VISIBLE
+                textAllNews.visibility = View.VISIBLE
+                tvKknHeader.visibility = View.VISIBLE
+                btnKkn.visibility = View.VISIBLE
+                checkDataKkn()
             }
         }
     }

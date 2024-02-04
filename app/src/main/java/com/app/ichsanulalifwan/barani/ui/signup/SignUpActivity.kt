@@ -101,8 +101,10 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val currentUsers = auth.currentUser
-                    val currentUserDb = mFirebaseDatabase.child((currentUsers?.uid!!))
-                    currentUserDb.setValue(userData)
+                    currentUsers?.let { user ->
+                        val currentUserDb = mFirebaseDatabase.child((user.uid))
+                        currentUserDb.setValue(userData)
+                    }
 
                     preferences.setValues("status", "1")
                     preferences.setValues("type", "1")

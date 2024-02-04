@@ -73,6 +73,8 @@ dependencies {
 
     // Google Play services library
     implementation "com.google.android.gms:play-services-auth:$gms_auth_version"
+
+    implementation project(path: ':core')
 }
 
 sonarqube {

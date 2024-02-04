@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,16 +14,19 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
-import com.app.ichsanulalifwan.barani.core.utils.DataMapper
-import com.app.ichsanulalifwan.barani.core.viewmodel.BerandaViewModel
 import com.app.ichsanulalifwan.barani.databinding.ListFragmentBinding
 import com.app.ichsanulalifwan.barani.ui.adapter.KknListAdapter
 import com.app.ichsanulalifwan.barani.ui.adapter.ListAdapter
-import com.google.firebase.database.*
+import com.app.ichsanulalifwan.barani.viewmodel.ViewModelFactory
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ListFragment : Fragment() {
 
-    private lateinit var berandaViewModel: BerandaViewModel
+    private lateinit var listViewModel: ListViewModel
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var newsAdapter: ListAdapter
@@ -36,8 +40,13 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
-        berandaViewModel =
-            ViewModelProvider(this)[BerandaViewModel::class.java]
+        listViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory.getInstance(
+                application = requireActivity().application,
+                isMock = false,
+            )
+        )[ListViewModel::class.java]
         return binding.root
     }
 
@@ -45,7 +54,6 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            binding.listShimmer.visibility = View.VISIBLE
 
             val category = args.type
 
@@ -88,11 +96,19 @@ class ListFragment : Fragment() {
     }
 
     private fun setNews() {
-        berandaViewModel.getLatestNews().observe(viewLifecycleOwner) {
-            val newsList = DataMapper.mapResponseToModel(it)
-            newsAdapter.setData(newsList as ArrayList<News>)
-            binding.listShimmer.visibility = View.GONE
+        listViewModel.apply {
+            getNews().observe(viewLifecycleOwner) { news ->
+                newsAdapter.setData(news as ArrayList<News>)
+            }
+
+            getIsLoading().observe(viewLifecycleOwner) { isLoading ->
+                isLoading(isLoading)
+            }
         }
+    }
+
+    private fun isLoading(isLoading: Boolean) {
+        binding.listShimmer.isVisible = isLoading
     }
 
     private fun getData() {
@@ -101,7 +117,9 @@ class ListFragment : Fragment() {
                 dataList.clear()
                 for (getdataSnapshot in dataSnapshot.children) {
                     val data = getdataSnapshot.getValue(Kkn::class.java)
-                    dataList.add(data!!)
+                    if (data != null) {
+                        dataList.add(data)
+                    }
                     kknListAdapter.setData(dataList)
                     binding.listShimmer.visibility = View.GONE
                 }

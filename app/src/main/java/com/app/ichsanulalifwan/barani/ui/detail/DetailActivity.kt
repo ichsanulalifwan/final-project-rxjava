@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.Kkn
 import com.app.ichsanulalifwan.barani.core.model.News
-import com.app.ichsanulalifwan.barani.core.utils.DataMapper
+import com.app.ichsanulalifwan.barani.core.utils.Utils
 import com.app.ichsanulalifwan.barani.databinding.ActivityDetailBinding
 import com.app.ichsanulalifwan.barani.ui.MainActivity
 import com.bumptech.glide.Glide
@@ -51,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
         binding.run {
             tvNameDetail.text = dataKkn.title
             tvAuthor.text = dataKkn.author
-            tvDateTimeLoc.text = DataMapper.kknDateFormatter(dataKkn.createdAt)
+            tvDateTimeLoc.text = Utils.kknDateFormatter(dataKkn.createdAt)
             val data = dataKkn.content
             tvDescDetail.text = Html.fromHtml(data)
             btnNews.visibility = View.GONE
@@ -67,7 +67,7 @@ class DetailActivity : AppCompatActivity() {
     private fun populateNews(dataNews: News) {
         binding.run {
             tvNameDetail.text = dataNews.title
-            tvDateTimeLoc.text = DataMapper.newsDateFormatter(dataNews.date)
+            tvDateTimeLoc.text = Utils.newsDateFormatter(dataNews.date)
             tvDescDetail.text = dataNews.desc
             btnNews.setOnClickListener {
                 val urlIntent = Intent(Intent.ACTION_VIEW)

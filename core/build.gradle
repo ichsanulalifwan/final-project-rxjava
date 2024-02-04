@@ -46,15 +46,24 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
 
     // Room
-    implementation "androidx.room:room-runtime:$room_version"
+    api "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
 
     // location
     implementation "com.google.android.gms:play-services-location:$gms_location_version"
 
     // RxJava
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$reactivestreams_version"
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    api "androidx.lifecycle:lifecycle-reactivestreams:$reactivestreams_version"
+
+    // Kotlin Flow
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_flow_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_flow_version"
+
+    // Reactor
+    implementation "io.projectreactor:reactor-core:$reactor_core_version"
+    implementation "io.projectreactor.kotlin:reactor-kotlin-extensions:$reactor_ktx_version"
 }

@@ -139,7 +139,7 @@ class SignInActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)!!
+                val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
@@ -170,7 +170,7 @@ class SignInActivity : AppCompatActivity() {
                 preferences.setValues("status", "1")
                 preferences.setValues("type", "2")
 
-                if (authResult.additionalUserInfo!!.isNewUser) {
+                if (authResult.additionalUserInfo?.isNewUser == true) {
                     Toast.makeText(
                         this@SignInActivity,
                         "Selamat Datang $userName",
@@ -206,9 +206,9 @@ class SignInActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val user = auth.currentUser
-                    val userReference = databaseReference.child(user?.uid!!)
+                    val userReference = user?.uid?.let { uid -> databaseReference.child(uid) }
 
-                    userReference.addValueEventListener(object : ValueEventListener {
+                    userReference?.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                             val userData = dataSnapshot.getValue(User::class.java)

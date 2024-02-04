@@ -38,4 +38,5 @@
     <string name="back_button_text">Back Buttom</string>
     <string name="lapor">Lapor</string>
     <string name="placeholder_date">Senin, 19 Juli 2021</string>
+    <string name="news_error">Could not load local news. Check your connection.</string>
 </resources>

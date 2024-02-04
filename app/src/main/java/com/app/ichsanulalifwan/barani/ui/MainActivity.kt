@@ -2,7 +2,6 @@ package com.app.ichsanulalifwan.barani.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val uri: Uri = data?.data!!
+            val uri = data?.data
             when (requestCode) {
                 ReportActivity.CAMERA_IMAGE_REQ_CODE -> {
                     startActivity(Intent(this, ReportActivity::class.java).putExtra("URI", uri))

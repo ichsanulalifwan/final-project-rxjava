@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.Kkn
-import com.app.ichsanulalifwan.barani.core.utils.DataMapper
+import com.app.ichsanulalifwan.barani.core.utils.Utils
 import com.app.ichsanulalifwan.barani.databinding.ItemKknBinding
 import com.app.ichsanulalifwan.barani.ui.detail.DetailActivity
 import com.bumptech.glide.Glide
@@ -42,7 +42,7 @@ class KknListAdapter : RecyclerView.Adapter<KknListAdapter.KknListViewHolder>() 
         fun bind(item: Kkn) {
             with(binding) {
                 tvTitleKkn.text = item.title
-                tvDateKkn.text = DataMapper.kknDateFormatter(item.createdAt)
+                tvDateKkn.text = Utils.kknDateFormatter(item.createdAt)
 
                 Glide.with(itemView.context)
                     .load(item.imageUrl)

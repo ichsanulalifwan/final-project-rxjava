@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.News
-import com.app.ichsanulalifwan.barani.core.utils.DataMapper
+import com.app.ichsanulalifwan.barani.core.utils.Utils
 import com.app.ichsanulalifwan.barani.databinding.ItemKknBinding
 import com.app.ichsanulalifwan.barani.ui.detail.DetailActivity
 import com.bumptech.glide.Glide
@@ -42,7 +42,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
         fun bind(item: News) {
             with(binding) {
                 tvTitleKkn.text = item.title
-                tvDateKkn.text = DataMapper.newsDateFormatter(item.date)
+                tvDateKkn.text = Utils.newsDateFormatter(item.date)
 
                 Glide.with(itemView.context)
                     .load(item.image)

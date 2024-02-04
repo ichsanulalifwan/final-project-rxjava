@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ichsanulalifwan.barani.R
 import com.app.ichsanulalifwan.barani.core.model.News
-import com.app.ichsanulalifwan.barani.core.utils.DataMapper
+import com.app.ichsanulalifwan.barani.core.utils.Utils
 import com.app.ichsanulalifwan.barani.databinding.ItemNewsBinding
 import com.app.ichsanulalifwan.barani.ui.detail.DetailActivity
 import com.bumptech.glide.Glide
@@ -43,7 +43,7 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.FavoriteViewHolder>() {
         fun bind(item: News) {
             with(binding) {
                 tvTitleNews.text = item.title
-                tvDateNews.text = DataMapper.newsDateFormatter(item.date)
+                tvDateNews.text = Utils.newsDateFormatter(item.date)
 
                 Glide.with(itemView.context)
                     .load(item.image)
