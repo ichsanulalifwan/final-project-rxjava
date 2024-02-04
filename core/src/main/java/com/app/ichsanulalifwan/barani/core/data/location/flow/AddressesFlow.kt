@@ -36,7 +36,5 @@ internal fun getAddresses(
 
     awaitClose { }
 }.catch { throwable ->
-    throw checkNotNull(throwable) {
-        "If the result is null, the exception cannot be."
-    }
+    throw throwable
 }
