@@ -21,7 +21,7 @@ class FlowNewsRepository(
 
     val publishers: Flow<List<PublisherEntity>> = localDataSource.allPublisherByFlow()
 
-    suspend fun getTopHeadlineNews(countryCode: String, category: String) = flow<Unit> {
+    fun getTopHeadlineNews(countryCode: String, category: String) = flow<Unit> {
         val newsResponse = remoteDataSource.getTopHeadlines(
             country = countryCode,
             category = category,
@@ -32,7 +32,7 @@ class FlowNewsRepository(
         })
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getEverythingNews(countryCode: String) = flow<Unit> {
+    fun getEverythingNews(countryCode: String) = flow<Unit> {
         val response = remoteDataSource.getEverything(country = countryCode)
         val articles = response.single().articles
         insertNewsToDatabase(newsEntities = articles.map {
@@ -40,7 +40,7 @@ class FlowNewsRepository(
         })
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getNewsPublisher() = flow<Unit> {
+    fun getNewsPublisher() = flow<Unit> {
         val response = remoteDataSource.getNewsPublishers()
         val sources = response.single().sources
         insertPublisherToDatabase(publisherEntities = sources.map {
