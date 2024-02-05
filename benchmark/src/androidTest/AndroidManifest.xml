@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.app.ichsanulalifwan.benchmark">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--
       Important: disable debugging for accurate performance results
@@ -9,14 +8,15 @@
       In a com.android.library project, this flag must be disabled from this
       manifest, as it is not possible to override this flag from Gradle.
     -->
-    <application
-        android:debuggable="false"
-        android:requestLegacyExternalStorage="true"
-        tools:ignore="HardcodedDebugMode"
-        tools:replace="android:debuggable">
+<!--    <application-->
+<!--        android:debuggable="false"-->
+<!--        tools:ignore="HardcodedDebugMode"-->
+<!--        tools:replace="android:debuggable" />-->
+
+    <!-- Requesting legacy storage is needed to be able to write to additionalTestOutputDir on API 29 -->
+    <application android:requestLegacyExternalStorage="true">
 
         <profileable android:shell="true" />
 
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
