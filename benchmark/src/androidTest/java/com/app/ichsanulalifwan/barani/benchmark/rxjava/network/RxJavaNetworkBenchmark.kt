@@ -26,25 +26,25 @@ class RxJavaNetworkBenchmark : RxJavaBenchmark(), NetworkBenchmark {
     }
 
     @Test
-    override fun fetchTwoNewsDetails() = benchmarkRule.measureRepeated {
+    override fun fetchTwoNews() = benchmarkRule.measureRepeated {
         val countryCode = List(2) { "us" }
         repository.getEverythingNews(countryCode).blockingGet()
     }
 
     @Test
-    override fun fetchTenNewsDetails() = benchmarkRule.measureRepeated {
+    override fun fetchTenNews() = benchmarkRule.measureRepeated {
         val newsIds = List(10) { "us" }
         repository.getEverythingNews(newsIds).blockingGet()
     }
 
     @Test
-    override fun fetchTwentyNewsDetails() = benchmarkRule.measureRepeated {
+    override fun fetchTwentyNews() = benchmarkRule.measureRepeated {
         val newsIds = List(20) { "us" }
         repository.getEverythingNews(newsIds).blockingGet()
     }
 
     @Test
-    override fun fetchFiftyNewsDetails() = benchmarkRule.measureRepeated {
+    override fun fetchFiftyNews() = benchmarkRule.measureRepeated {
         val newsIds = List(50) { "us" }
         repository.getEverythingNews(newsIds).blockingGet()
     }

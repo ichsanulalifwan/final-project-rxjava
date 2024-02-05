@@ -10,14 +10,14 @@ interface NetworkBenchmark {
     fun fetchNewsThreeSequentialRequests()
 
     @Test
-    fun fetchTwoNewsDetails()
+    fun fetchTwoNews()
 
     @Test
-    fun fetchTenNewsDetails()
+    fun fetchTenNews()
 
     @Test
-    fun fetchTwentyNewsDetails()
+    fun fetchTwentyNews()
 
     @Test
-    fun fetchFiftyNewsDetails()
+    fun fetchFiftyNews()
 }
