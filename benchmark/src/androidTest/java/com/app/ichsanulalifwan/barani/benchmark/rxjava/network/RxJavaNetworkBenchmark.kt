@@ -1,49 +1,51 @@
 package com.app.ichsanulalifwan.barani.benchmark.rxjava.network
 
-import androidx.benchmark.measureRepeated
+import android.annotation.SuppressLint
+import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.app.ichsanulalifwan.barani.benchmark.api.NetworkBenchmark
 import com.app.ichsanulalifwan.barani.benchmark.rxjava.RxJavaBenchmark
-import com.app.ichsanulalifwan.barani.benchmark.NetworkBenchmark
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@SuppressLint("CheckResult")
 @RunWith(AndroidJUnit4::class)
 class RxJavaNetworkBenchmark : RxJavaBenchmark(), NetworkBenchmark {
 
     @Test
     override fun fetchNewsSingleRequest() = benchmarkRule.measureRepeated {
-        remoteDataSource.getNewsPublishers().blockingGet()
+        remoteDataSource.getTopHeadlines().blockingGet()
     }
 
     @Test
     override fun fetchNewsThreeSequentialRequests() = benchmarkRule.measureRepeated {
-//        remoteDataSource.getTrendingNews()
-//            .flatMap { remoteSource.getTrendingNews() }
-//            .flatMap { remoteSource.getTrendingNews() }
-//            .blockingGet()
+        remoteDataSource.getTopHeadlines()
+            .flatMap { remoteDataSource.getTopHeadlines() }
+            .flatMap { remoteDataSource.getTopHeadlines() }
+            .blockingGet()
     }
 
     @Test
     override fun fetchTwoNewsDetails() = benchmarkRule.measureRepeated {
-        val newsIds = List(2) { 1 }
-//        repository.getMoviesDetail(newsIds).blockingGet()
+        val countryCode = List(2) { "us" }
+        repository.getEverythingNews(countryCode).blockingGet()
     }
 
     @Test
     override fun fetchTenNewsDetails() = benchmarkRule.measureRepeated {
-        val newsIds = List(10) { 1 }
-//        repository.getMoviesDetail(newsIds).blockingGet()
+        val newsIds = List(10) { "us" }
+        repository.getEverythingNews(newsIds).blockingGet()
     }
 
     @Test
     override fun fetchTwentyNewsDetails() = benchmarkRule.measureRepeated {
-        val newsIds = List(20) { 1 }
-//        repository.getMoviesDetail(newsIds).blockingGet()
+        val newsIds = List(20) { "us" }
+        repository.getEverythingNews(newsIds).blockingGet()
     }
 
     @Test
     override fun fetchFiftyNewsDetails() = benchmarkRule.measureRepeated {
-        val newsIds = List(50) { 1 }
-//        repository.getMoviesDetail(newsIds).blockingGet()
+        val newsIds = List(50) { "us" }
+        repository.getEverythingNews(newsIds).blockingGet()
     }
 }
