@@ -1,5 +1,6 @@
 package com.app.ichsanulalifwan.barani.core.data.source.remote.network
 
+import android.content.Context
 import com.app.ichsanulalifwan.barani.core.data.source.remote.network.rxjava.RxJavaNewsApiService
 import com.app.ichsanulalifwan.barani.core.mock.MockInterceptor
 import com.app.ichsanulalifwan.barani.core.utils.Constant.BASE_URL
@@ -31,10 +32,12 @@ object ApiConfig {
         return retrofit.create(RxJavaNewsApiService::class.java)
     }
 
-    fun getMockApiService(): RxJavaNewsApiService {
+    fun getMockApiService(context: Context): RxJavaNewsApiService {
+
+        val mockInterceptor = MockInterceptor(context = context)
 
         val mockClient = OkHttpClient.Builder()
-            .addInterceptor(MockInterceptor())
+            .addInterceptor(mockInterceptor)
             .build()
 
         val retrofit = Retrofit.Builder()

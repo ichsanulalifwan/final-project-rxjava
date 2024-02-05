@@ -13,7 +13,7 @@ object Injection {
         val newsDao = database.newsDao()
         val remoteDataSource = if (!isMock) {
             ApiConfig.getApiService()
-        } else ApiConfig.getMockApiService()
+        } else ApiConfig.getMockApiService(context = context)
 
         return RxJavaNewsRepository.getInstance(remoteDataSource, newsDao)
     }
