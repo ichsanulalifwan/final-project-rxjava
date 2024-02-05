@@ -6,7 +6,6 @@ import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesI
 import com.app.ichsanulalifwan.barani.core.data.source.remote.response.SourceResponse
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.model.Publisher
-import java.util.*
 
 object DataMapper {
 
@@ -51,7 +50,7 @@ internal fun ArticlesItemResponse.toNewsModel() = News(
     sourceName = source?.name ?: "",
 )
 
-internal fun ArticlesItemResponse.toNewsEntity() = NewsEntity(
+fun ArticlesItemResponse.toNewsEntity() = NewsEntity(
     title = title ?: "",
     author = author ?: "",
     date = publishedAt ?: "",
