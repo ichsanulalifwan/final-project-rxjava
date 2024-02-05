@@ -4,10 +4,12 @@ import com.app.ichsanulalifwan.barani.core.data.source.local.entity.NewsEntity
 import com.app.ichsanulalifwan.barani.core.data.source.local.entity.PublisherEntity
 import com.app.ichsanulalifwan.barani.core.data.source.local.room.NewsDao
 import com.app.ichsanulalifwan.barani.core.data.source.remote.network.rxjava.RxJavaNewsApiService
+import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesItemResponse
 import com.app.ichsanulalifwan.barani.core.utils.toNewsEntity
 import com.app.ichsanulalifwan.barani.core.utils.toPublisherEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class RxJavaNewsRepository(
@@ -29,13 +31,16 @@ class RxJavaNewsRepository(
                 })
             }
 
-    fun getEverythingNews(countryCode: String): Completable =
-        remoteDataSource.getEverything(country = countryCode)
-            .flatMapCompletable { response ->
-                insertNewsToDatabase(newsEntities = response.articles.map {
-                    it.toNewsEntity()
-                })
-            }
+    fun getEverythingNews(countryCode: List<String>): Single<List<ArticlesItemResponse>> {
+        val singles = countryCode.map { code ->
+            remoteDataSource.getEverything(country = code)
+                .subscribeOn(Schedulers.io())
+                .map { response -> response.articles }
+                .onErrorReturnItem(emptyList())
+        }
+
+        return Single.zip(singles) { it.flatMap { item -> item as List<ArticlesItemResponse> } }
+    }
 
     fun getNewsPublisher(): Completable =
         remoteDataSource.getNewsPublishers()
