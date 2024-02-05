@@ -1,4 +1,4 @@
-package com.app.ichsanulalifwan.benchmark.api
+package com.app.ichsanulalifwan.barani.benchmark.api
 
 import org.junit.Test
 
@@ -39,7 +39,4 @@ interface DatabaseBenchmark {
 
     @Test
     fun queryTwentyNewsInParallel()
-
-    @Test
-    fun queryTwentyNewsReactive()
 }

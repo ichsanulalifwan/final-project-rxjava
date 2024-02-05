@@ -1,3 +1,7 @@
+import org.json.JSONObject
+import org.jsontocsv.parser.JSONFlattener
+import org.jsontocsv.writer.CSVWriter
+
 plugins {
     id 'com.android.library'
     id 'androidx.benchmark'
@@ -23,7 +27,7 @@ android {
 
         testInstrumentationRunner 'androidx.benchmark.junit4.AndroidBenchmarkRunner'
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR"
-//        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = "StackSampling"
+        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = "StackSampling"
     }
 
     testBuildType = "release"
@@ -42,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     androidTestImplementation(project(":core"))
 
     androidTestImplementation "androidx.test:runner:$androidx_test_version"
@@ -51,44 +57,44 @@ dependencies {
     androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmark_version"
 }
 
-//task benchmarkJsonToCsv {
-//
-//    doFirst {
-//
-//        // Getting benchmark files available
-//        // Matching by the format described in the docs
-//        def expectedBenchmarkPath = "$buildDir/outputs"
-//        def files = fileTree(expectedBenchmarkPath)
-//                .matching { include "**/*benchmarkData.json" }
-//                .getFiles()
-//
-//        // If no benchmark file is found stop the task
-//        if (files.isEmpty()) {
-//            throw new GradleException("No benchmark files found inside $expectedBenchmarkPath")
-//        }
-//
-//        // Get the first benchmark file and getting the 'benchmarks' array inside the JSON file
-//        def benchmarkFile = files.first()
-//        def strBytes = new String(benchmarkFile.bytes)
-//        def arrayObject = new JSONObject(strBytes).getJSONArray("benchmarks")
-//
-//        // If the 'benchmarks' array is empty, stop the task
-//        if (arrayObject == null || arrayObject.length() < 1) {
-//            throw new GradleException("Could not find any benchmark data inside the JSON file.")
-//        }
-//
-//        def flatArray = JSONFlattener.parse(arrayObject)
-//
-//        // Writing flatted benchmark data to csv
-//        def csvFilePath = "$projectDir/results/benchmark.csv"
-//        CSVWriter.writeToFile(CSVWriter.getCSV(flatArray), csvFilePath)
-//
-//        println(CSVWriter.getCSV(flatArray))
-//        println("CSV generated at $csvFilePath")
-//    }
-//}
-//
-//task benchmarkCsvReport {
-//    dependsOn ':benchmark:connectedCheck', ':benchmark:benchmarkJsonToCsv'
-//    benchmarkJsonToCsv.mustRunAfter connectedCheck
-//}
+task benchmarkJsonToCsv {
+
+    doFirst {
+
+        // Getting benchmark files available
+        // Matching by the format described in the docs
+        def expectedBenchmarkPath = "$buildDir/outputs"
+        def files = fileTree(expectedBenchmarkPath)
+                .matching { include "**/*benchmarkData.json" }
+                .getFiles()
+
+        // If no benchmark file is found stop the task
+        if (files.isEmpty()) {
+            throw new GradleException("No benchmark files found inside $expectedBenchmarkPath")
+        }
+
+        // Get the first benchmark file and getting the 'benchmarks' array inside the JSON file
+        def benchmarkFile = files.first()
+        def strBytes = new String(benchmarkFile.bytes)
+        def arrayObject = new JSONObject(strBytes).getJSONArray("benchmarks")
+
+        // If the 'benchmarks' array is empty, stop the task
+        if (arrayObject == null || arrayObject.length() < 1) {
+            throw new GradleException("Could not find any benchmark data inside the JSON file.")
+        }
+
+        def flatArray = JSONFlattener.parse(arrayObject)
+
+        // Writing flatted benchmark data to csv
+        def csvFilePath = "$projectDir/results/benchmark.csv"
+        CSVWriter.writeToFile(CSVWriter.getCSV(flatArray), csvFilePath)
+
+        println(CSVWriter.getCSV(flatArray))
+        println("CSV generated at $csvFilePath")
+    }
+}
+
+task benchmarkCsvReport {
+    dependsOn ':benchmark:connectedCheck', ':benchmark:benchmarkJsonToCsv'
+    benchmarkJsonToCsv.mustRunAfter connectedCheck
+}
