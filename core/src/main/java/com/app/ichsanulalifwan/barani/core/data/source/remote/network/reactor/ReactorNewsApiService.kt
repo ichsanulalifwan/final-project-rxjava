@@ -11,19 +11,19 @@ interface ReactorNewsApiService {
 
     @GET("v2/top-headlines")
     fun getTopHeadlines(
-        @Query("country") country: String,
-        @Query("category") category: String,
-        @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY
+        @Query("country") country: String = "us",
+        @Query("category") category: String = "health",
+        @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY,
     ): Mono<NewsResponse>
 
     @GET("v2/top-headlines/sources")
     fun getNewsPublishers(
-        @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY
+        @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY,
     ): Mono<PublisherResponse>
 
     @GET("v2/everything")
     fun getEverything(
-        @Query("q") country: String,
-        @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY
+        @Query("q") country: String = "us",
+        @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY,
     ): Mono<NewsResponse>
 }

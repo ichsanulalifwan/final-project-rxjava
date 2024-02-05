@@ -11,8 +11,8 @@ interface FlowNewsApiService {
 
     @GET("v2/top-headlines")
     fun getTopHeadlines(
-        @Query("country") country: String,
-        @Query("category") category: String,
+        @Query("country") country: String = "us",
+        @Query("category") category: String = "health",
         @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY,
     ): Flow<NewsResponse>
 
@@ -23,7 +23,7 @@ interface FlowNewsApiService {
 
     @GET("v2/everything")
     fun getEverything(
-        @Query("q") country: String,
+        @Query("q") country: String = "us",
         @Query("apiKey") apiKey: String = Constant.NEWS_API_KEY,
     ): Flow<NewsResponse>
 }
