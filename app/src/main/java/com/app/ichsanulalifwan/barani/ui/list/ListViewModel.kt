@@ -55,11 +55,11 @@ class ListViewModel(
         TODO("Not yet implemented")
     }
 
-    override fun startUpdatesForEverythingNews() {
+    override fun startUpdatesForTopHeadlineNewsLocal() {
         TODO("Not yet implemented")
     }
 
-    override fun cancelUpdatesForEverythingNews() {
+    override fun cancelUpdatesForTopHeadlineNewsLocal() {
         TODO("Not yet implemented")
     }
 }

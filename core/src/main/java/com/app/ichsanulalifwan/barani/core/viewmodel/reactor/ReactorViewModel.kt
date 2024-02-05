@@ -11,6 +11,7 @@ import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepos
 import com.app.ichsanulalifwan.barani.core.data.repository.news.reactor.ReactorNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.model.Publisher
+import com.app.ichsanulalifwan.barani.core.utils.Constant
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
 import reactor.core.Disposable
@@ -67,8 +68,8 @@ class ReactorViewModel(
             }
     }
 
-    override fun startUpdatesForEverythingNews() {
-        startEverythingNewsTimer()
+    override fun startUpdatesForTopHeadlineNewsLocal() {
+        startTopHeadlineNewsLocalTimer()
 
         locationDisposable?.dispose()
         locationDisposable = getLocationUpdates(
@@ -84,25 +85,27 @@ class ReactorViewModel(
                     maxResults = 1,
                 ).flatMap { addresses ->
                     val countryCode = addresses.first().countryCode
-                    newsRepository.getEverythingNews(countryCode = countryCode)
-                        .doFinally {
-                            stopEverythingNewsTimer()
-                            isLoading.postValue(false)
-                            isLocalNews.postValue(true)
-                        }
+                    newsRepository.getTopHeadlineNews(
+                        countryCode = countryCode,
+                        category = Constant.HEALTH_CATEGORY,
+                    ).doFinally {
+                        stopTopHeadlineNewsLocalTimer()
+                        isLoading.postValue(false)
+                        isLocalNews.postValue(true)
+                    }
                 }
             }
             .publishOn(Schedulers.single())
             .doOnSubscribe { isLoading.value = true }
             .subscribe({}, {
-                handleEverythingNewsError(it)
+                handleTopHeadlineNewsLocalError(it)
             })
             .also {
                 disposable.add(it)
             }
     }
 
-    override fun cancelUpdatesForEverythingNews() {
+    override fun cancelUpdatesForTopHeadlineNewsLocal() {
         locationDisposable?.dispose()
     }
 
