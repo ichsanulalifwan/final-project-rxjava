@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.single
 
 class FlowNewsRepository(
     private val remoteDataSource: FlowNewsApiService,
@@ -26,7 +25,7 @@ class FlowNewsRepository(
             country = countryCode,
             category = category,
         )
-        val articles = newsResponse.single().articles
+        val articles = newsResponse.articles
         insertNewsToDatabase(newsEntities = articles.map {
             it.toNewsEntity()
         })
@@ -34,7 +33,7 @@ class FlowNewsRepository(
 
     fun getEverythingNews(countryCode: String) = flow<Unit> {
         val response = remoteDataSource.getEverything(country = countryCode)
-        val articles = response.single().articles
+        val articles = response.articles
         insertNewsToDatabase(newsEntities = articles.map {
             it.toNewsEntity()
         })
@@ -42,7 +41,7 @@ class FlowNewsRepository(
 
     fun getNewsPublisher() = flow<Unit> {
         val response = remoteDataSource.getNewsPublishers()
-        val sources = response.single().sources
+        val sources = response.sources
         insertPublisherToDatabase(publisherEntities = sources.map {
             it.toPublisherEntity()
         })
