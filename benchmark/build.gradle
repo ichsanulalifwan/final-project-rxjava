@@ -46,8 +46,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     androidTestImplementation(project(":core"))
 
     androidTestImplementation "androidx.test:runner:$androidx_test_version"
