@@ -13,7 +13,7 @@ import com.app.ichsanulalifwan.barani.core.data.source.local.entity.PublisherEnt
         PublisherEntity::class,
     ],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -29,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                 Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "news.db"
+                    "news.db",
                 ).build().apply {
                     instance = this
                 }
