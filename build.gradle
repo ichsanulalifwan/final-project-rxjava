@@ -1,5 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
     ext {
         //dependencies version
 
@@ -71,6 +76,8 @@ buildscript {
 
         // Sonarqube
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$sonaqube_version"
+
+        classpath 'com.github.arkni:json-to-csv:-SNAPSHOT'
     }
 }
 
