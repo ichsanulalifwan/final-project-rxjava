@@ -7,8 +7,8 @@ interface NewsTimer {
     var topHeadlineRunNumber: Int
     var startTopHeadline: Long
 
-    var everythingRunNumber: Int
-    var startEverything: Long
+    var topHeadlineLocalRunNumber: Int
+    var startTopHeadlineLocal: Long
 
     var sourcesRunNumber: Int
     var startSources: Long
@@ -22,13 +22,13 @@ interface NewsTimer {
         log("Top Headlines News Run #$topHeadlineRunNumber took ${System.currentTimeMillis() - startTopHeadline} ms.")
     }
 
-    fun startEverythingNewsTimer() {
-        everythingRunNumber++
-        startEverything = System.currentTimeMillis()
+    fun startTopHeadlineNewsLocalTimer() {
+        topHeadlineLocalRunNumber++
+        startTopHeadlineLocal = System.currentTimeMillis()
     }
 
-    fun stopEverythingNewsTimer() {
-        log("Everything News Run #$everythingRunNumber took ${System.currentTimeMillis() - startEverything} ms.")
+    fun stopTopHeadlineNewsLocalTimer() {
+        log("Top Headlines News Local Run #$topHeadlineLocalRunNumber took ${System.currentTimeMillis() - startTopHeadlineLocal} ms.")
     }
 
     fun startSourcesNewsTimer() {
@@ -37,7 +37,7 @@ interface NewsTimer {
     }
 
     fun stopSourcesNewsTimer() {
-        log("Everything News Run #$sourcesRunNumber took ${System.currentTimeMillis() - startSources} ms.")
+        log("Publisher Run #$sourcesRunNumber took ${System.currentTimeMillis() - startSources} ms.")
     }
 
     companion object {
