@@ -32,11 +32,11 @@ abstract class BaseViewModel(private val application: Application) : ViewModel()
      * Timer
      */
     override var topHeadlineRunNumber: Int = 0
-    override var everythingRunNumber: Int = 0
+    override var topHeadlineLocalRunNumber: Int = 0
     override var sourcesRunNumber: Int = 0
 
     override var startTopHeadline: Long = 0
-    override var startEverything: Long = 0
+    override var startTopHeadlineLocal: Long = 0
     override var startSources: Long = 0
 
     protected val message by lazy { MutableLiveData<String?>() }
@@ -51,8 +51,8 @@ abstract class BaseViewModel(private val application: Application) : ViewModel()
 
     protected abstract fun getTopHeadlineNews()
     protected abstract fun getNewsPublisher()
-    protected abstract fun startUpdatesForEverythingNews()
-    protected abstract fun cancelUpdatesForEverythingNews()
+    protected abstract fun startUpdatesForTopHeadlineNewsLocal()
+    protected abstract fun cancelUpdatesForTopHeadlineNewsLocal()
 
     protected val context: Context
         get() = application.applicationContext
@@ -65,8 +65,8 @@ abstract class BaseViewModel(private val application: Application) : ViewModel()
         message.value = application.applicationContext.getString(R.string.location_permission_denied)
     }
 
-    protected fun handleEverythingNewsError(it: Throwable?) {
-        startUpdatesForEverythingNews()
+    protected fun handleTopHeadlineNewsLocalError(it: Throwable?) {
+        startUpdatesForTopHeadlineNewsLocal()
         message.value = if (it is LocationProviderNotAvailableException) {
             context.getString(R.string.location_provider_off)
         } else {
@@ -75,7 +75,7 @@ abstract class BaseViewModel(private val application: Application) : ViewModel()
 
         isLoading.value = false
         isLocalNews.value = false
-        cancelUpdatesForEverythingNews()
+        cancelUpdatesForTopHeadlineNewsLocal()
         getTopHeadlineNews()
     }
 

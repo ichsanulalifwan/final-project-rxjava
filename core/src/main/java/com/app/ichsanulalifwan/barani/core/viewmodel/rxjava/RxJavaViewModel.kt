@@ -11,6 +11,8 @@ import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepos
 import com.app.ichsanulalifwan.barani.core.data.repository.news.rxjava.RxJavaNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.model.Publisher
+import com.app.ichsanulalifwan.barani.core.utils.Constant.HEALTH_CATEGORY
+import com.app.ichsanulalifwan.barani.core.utils.Constant.US_COUNTRY_CODE
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -49,7 +51,7 @@ class RxJavaViewModel(
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()
 
-        newsRepository.getTopHeadlineNews(countryCode = "us", category = "health")
+        newsRepository.getTopHeadlineNews(countryCode = US_COUNTRY_CODE, category = HEALTH_CATEGORY)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -70,8 +72,8 @@ class RxJavaViewModel(
             }
     }
 
-    override fun startUpdatesForEverythingNews() {
-        startEverythingNewsTimer()
+    override fun startUpdatesForTopHeadlineNewsLocal() {
+        startTopHeadlineNewsLocalTimer()
 
         locationDisposable?.dispose()
         locationDisposable = getLocationUpdates(
@@ -89,8 +91,11 @@ class RxJavaViewModel(
             }
             .flatMapCompletable { addresses ->
                 val countryCode = addresses.first().countryCode
-                newsRepository.getEverythingNews(countryCode = countryCode).doOnComplete {
-                    stopEverythingNewsTimer()
+                newsRepository.getTopHeadlineNews(
+                    countryCode = countryCode,
+                    category = HEALTH_CATEGORY,
+                ).doOnComplete {
+                    stopTopHeadlineNewsLocalTimer()
                     isLoading.postValue(false)
                     isLocalNews.postValue(true)
                 }
@@ -100,14 +105,14 @@ class RxJavaViewModel(
                 isLoading.value = true
             }
             .subscribe({}, {
-                handleEverythingNewsError(it)
+                handleTopHeadlineNewsLocalError(it)
             })
             .also {
                 disposableBag.add(it)
             }
     }
 
-    override fun cancelUpdatesForEverythingNews() {
+    override fun cancelUpdatesForTopHeadlineNewsLocal() {
         locationDisposable?.dispose()
     }
 

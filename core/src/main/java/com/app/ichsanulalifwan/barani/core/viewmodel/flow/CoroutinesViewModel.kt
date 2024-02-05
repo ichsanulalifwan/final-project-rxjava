@@ -12,6 +12,8 @@ import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepos
 import com.app.ichsanulalifwan.barani.core.data.repository.news.flow.FlowNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.model.Publisher
+import com.app.ichsanulalifwan.barani.core.utils.Constant.HEALTH_CATEGORY
+import com.app.ichsanulalifwan.barani.core.utils.Constant.US_COUNTRY_CODE
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -60,7 +62,10 @@ class CoroutinesViewModel(
         startTopHeadlinesNewsTimer()
 
         viewModelScope.launch {
-            newsRepository.getTopHeadlineNews(countryCode = "us", category = "health")
+            newsRepository.getTopHeadlineNews(
+                countryCode = US_COUNTRY_CODE,
+                category = HEALTH_CATEGORY
+            )
                 .flowOn(Dispatchers.IO)
                 .onStart {
                     isLoading.value = true
@@ -79,8 +84,8 @@ class CoroutinesViewModel(
     }
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    override fun startUpdatesForEverythingNews() {
-        startEverythingNewsTimer()
+    override fun startUpdatesForTopHeadlineNewsLocal() {
+        startTopHeadlineNewsLocalTimer()
 
         locationJobFlow = getLocationUpdates(
             locationClient = locationServiceClient,
@@ -94,8 +99,11 @@ class CoroutinesViewModel(
                     maxResults = 1,
                 ).flatMapConcat { addresses ->
                     val countryCode = addresses.first().countryCode
-                    newsRepository.getEverythingNews(countryCode).onCompletion {
-                        stopEverythingNewsTimer()
+                    newsRepository.getTopHeadlineNews(
+                        countryCode = countryCode,
+                        category = HEALTH_CATEGORY,
+                    ).onCompletion {
+                        stopTopHeadlineNewsLocalTimer()
                         isLoading.value = false
                         isLocalNews.value = true
                     }
@@ -105,11 +113,11 @@ class CoroutinesViewModel(
                 isLoading.value = true
             }
             .catch { throwable ->
-                handleEverythingNewsError(throwable)
+                handleTopHeadlineNewsLocalError(throwable)
             }
     }
 
-    override fun cancelUpdatesForEverythingNews() {
+    override fun cancelUpdatesForTopHeadlineNewsLocal() {
         locationJobFlow = null
     }
 
