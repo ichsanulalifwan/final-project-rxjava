@@ -9,12 +9,15 @@ object Injection {
 
     fun provideRepository(context: Context, isMock: Boolean): RxJavaNewsRepository {
 
-        val database = AppDatabase.getInstance(context.applicationContext)
+        val database = AppDatabase.getInstance(context = context.applicationContext)
         val newsDao = database.newsDao()
         val remoteDataSource = if (!isMock) {
             ApiConfig.getApiService()
         } else ApiConfig.getMockApiService(context = context)
 
-        return RxJavaNewsRepository.getInstance(remoteDataSource, newsDao)
+        return RxJavaNewsRepository.getInstance(
+            remoteDataSource = remoteDataSource,
+            localDataSource = newsDao,
+        )
     }
 }
