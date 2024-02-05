@@ -64,7 +64,7 @@ class CoroutinesViewModel(
         viewModelScope.launch {
             newsRepository.getTopHeadlineNews(
                 countryCode = US_COUNTRY_CODE,
-                category = HEALTH_CATEGORY
+                category = HEALTH_CATEGORY,
             )
                 .flowOn(Dispatchers.IO)
                 .onStart {

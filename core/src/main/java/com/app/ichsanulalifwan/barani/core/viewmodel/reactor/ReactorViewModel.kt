@@ -11,7 +11,8 @@ import com.app.ichsanulalifwan.barani.core.data.repository.location.AddressRepos
 import com.app.ichsanulalifwan.barani.core.data.repository.news.reactor.ReactorNewsRepository
 import com.app.ichsanulalifwan.barani.core.model.News
 import com.app.ichsanulalifwan.barani.core.model.Publisher
-import com.app.ichsanulalifwan.barani.core.utils.Constant
+import com.app.ichsanulalifwan.barani.core.utils.Constant.HEALTH_CATEGORY
+import com.app.ichsanulalifwan.barani.core.utils.Constant.US_COUNTRY_CODE
 import com.app.ichsanulalifwan.barani.core.utils.DataMapper
 import com.app.ichsanulalifwan.barani.core.viewmodel.BaseViewModel
 import reactor.core.Disposable
@@ -47,7 +48,7 @@ class ReactorViewModel(
     override fun getTopHeadlineNews() {
         startTopHeadlinesNewsTimer()
 
-        newsRepository.getTopHeadlineNews(countryCode = "us", category = "health")
+        newsRepository.getTopHeadlineNews(countryCode = US_COUNTRY_CODE, category = HEALTH_CATEGORY)
             .subscribeOn(Schedulers.boundedElastic())
             .publishOn(Schedulers.single())
             .doOnSubscribe {
@@ -87,7 +88,7 @@ class ReactorViewModel(
                     val countryCode = addresses.first().countryCode
                     newsRepository.getTopHeadlineNews(
                         countryCode = countryCode,
-                        category = Constant.HEALTH_CATEGORY,
+                        category = HEALTH_CATEGORY,
                     ).doFinally {
                         stopTopHeadlineNewsLocalTimer()
                         isLoading.postValue(false)
