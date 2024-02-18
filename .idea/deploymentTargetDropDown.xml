@@ -2,13 +2,28 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="FinalProjectRxJava.app">
+        <State />
+      </entry>
+      <entry key="RxJavaDatabaseBenchmark">
+        <State />
+      </entry>
+      <entry key="RxJavaIntegrationBenchmark">
+        <State />
+      </entry>
+      <entry key="RxJavaNetworkBenchmark">
+        <State />
+      </entry>
+      <entry key="RxJavaNetworkBenchmark (1)">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
-      <entry key="fetchNewsSingleRequest()">
+      <entry key="fetchNewsSingleRequestRxJava()">
         <State />
       </entry>
-      <entry key="fetchNewsThreeSequentialRequests()">
+      <entry key="integration1()">
         <State />
       </entry>
     </value>

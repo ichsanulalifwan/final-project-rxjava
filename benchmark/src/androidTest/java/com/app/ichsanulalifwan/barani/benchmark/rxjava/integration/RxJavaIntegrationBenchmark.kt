@@ -90,8 +90,9 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
             }.blockingAwait()
     }
 
+    // TODO: Change Reactive naming
     @Test
-    override fun integrationReactive() = benchmarkRule.measureRepeated {
+    override fun integrationFlowable() = benchmarkRule.measureRepeated {
 
         val flowable = Flowable.create({ emitter ->
             emitter.onNext(remoteDataSource.getTopHeadlines().blockingGet())
