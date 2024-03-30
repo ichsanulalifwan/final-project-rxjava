@@ -14,7 +14,8 @@ class RxJavaNetworkBenchmark : RxJavaBenchmark(), NetworkBenchmark {
 
     @Test
     override fun fetchNewsSingleRequest() = benchmarkRule.measureRepeated {
-        remoteDataSource.getTopHeadlines().blockingGet()
+        val countryCode = List(1) { "us" }
+        repository.getEverythingNews(countryCode).blockingLast()
     }
 
     @Test
@@ -30,24 +31,24 @@ class RxJavaNetworkBenchmark : RxJavaBenchmark(), NetworkBenchmark {
     @Test
     override fun fetchTenNews() = benchmarkRule.measureRepeated {
         val countryCode = List(10) { "us" }
-        repository.getEverythingNews(countryCode).blockingGet()
+        repository.getEverythingNews(countryCode).blockingLast()
     }
 
     @Test
     override fun fetchTwentyFiveNews() = benchmarkRule.measureRepeated {
         val newsIds = List(25) { "us" }
-        repository.getEverythingNews(newsIds).blockingGet()
+        repository.getEverythingNews(newsIds).blockingLast()
     }
 
     @Test
     override fun fetchFiftyNews() = benchmarkRule.measureRepeated {
         val newsIds = List(50) { "us" }
-        repository.getEverythingNews(newsIds).blockingGet()
+        repository.getEverythingNews(newsIds).blockingLast()
     }
 
     @Test
     override fun fetchOneHundredNews() = benchmarkRule.measureRepeated {
         val newsIds = List(100) { "us" }
-        repository.getEverythingNews(newsIds).blockingGet()
+        repository.getEverythingNews(newsIds).blockingLast()
     }
 }
