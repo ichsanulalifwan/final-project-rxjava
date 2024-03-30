@@ -6,8 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.app.ichsanulalifwan.barani.benchmark.api.DatabaseBenchmark
 import com.app.ichsanulalifwan.barani.benchmark.mock.getMockNewsEntity
 import com.app.ichsanulalifwan.barani.benchmark.rxjava.RxJavaBenchmark
-import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -15,78 +13,36 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RxJavaDatabaseBenchmark : RxJavaBenchmark(), DatabaseBenchmark {
 
-    /**
-     * Inserts
-     */
     @Test
-    override fun insertTwoNews() = benchmarkRule.measureRepeated {
+    override fun queryOneNews() = benchmarkRule.measureRepeated {
         runWithTimingDisabled {
-            localDataSource.deleteNewsAsCompletable().blockingAwait()
+            clearAndInsertMovies(size = 1)
         }
-        val entities = List(2) {
-            getMockNewsEntity(it)
-        }
-        localDataSource.insertNewsAsCompletable(entities).blockingAwait()
+        repository.news.blockingFirst()
     }
 
     @Test
-    override fun insertTenNews() = benchmarkRule.measureRepeated {
+    override fun queryFiveNews() = benchmarkRule.measureRepeated {
         runWithTimingDisabled {
-            localDataSource.deleteNewsAsCompletable().blockingAwait()
+            clearAndInsertMovies(size = 5)
         }
-        val entities = List(10) {
-            getMockNewsEntity(it)
-        }
-        localDataSource.insertNewsAsCompletable(entities).blockingAwait()
+        repository.news.blockingFirst()
     }
 
     @Test
-    override fun insertTwentyNews() = benchmarkRule.measureRepeated {
+    override fun queryTenNews() = benchmarkRule.measureRepeated {
         runWithTimingDisabled {
-            localDataSource.deleteNewsAsCompletable().blockingAwait()
+            clearAndInsertMovies(size = 10)
         }
-        val entities = List(20) {
-            getMockNewsEntity(it)
-        }
-        localDataSource.insertNewsAsCompletable(entities).blockingAwait()
+        repository.news.blockingFirst()
     }
 
     @Test
-    override fun insertFiftyNews() = benchmarkRule.measureRepeated {
+    override fun queryTwentyFiveNews() = benchmarkRule.measureRepeated {
         runWithTimingDisabled {
-            localDataSource.deleteNewsAsCompletable().blockingAwait()
+            clearAndInsertMovies(size = 25)
         }
-        val entities = List(50) {
-            getMockNewsEntity(it)
-        }
-        localDataSource.insertNewsAsCompletable(entities).blockingAwait()
-    }
-
-    @Test
-    override fun insertOneHundredNews() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled {
-            localDataSource.deleteNewsAsCompletable().blockingAwait()
-        }
-        val entities = List(100) {
-            getMockNewsEntity(it)
-        }
-        localDataSource.insertNewsAsCompletable(entities).blockingAwait()
-    }
-
-    @Test
-    override fun clearAndInsertTwentyNews() = benchmarkRule.measureRepeated {
-        clearAndInsertMovies(20)
-    }
-
-    /**
-     * Queries
-     */
-    @Test
-    override fun queryTwentyNews() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled {
-            clearAndInsertMovies(size = 20)
-        }
-        localDataSource.allNewsByFlowable().blockingFirst()
+        repository.news.blockingFirst()
     }
 
     @Test
@@ -94,7 +50,7 @@ class RxJavaDatabaseBenchmark : RxJavaBenchmark(), DatabaseBenchmark {
         runWithTimingDisabled {
             clearAndInsertMovies(size = 50)
         }
-        localDataSource.allNewsByFlowable().blockingFirst()
+        repository.news.blockingFirst()
     }
 
     @Test
@@ -102,18 +58,7 @@ class RxJavaDatabaseBenchmark : RxJavaBenchmark(), DatabaseBenchmark {
         runWithTimingDisabled {
             clearAndInsertMovies(size = 100)
         }
-        localDataSource.allNewsByFlowable().blockingFirst()
-    }
-
-    @Test
-    override fun queryTwentyNewsInParallel() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled {
-            clearAndInsertMovies(20)
-        }
-        val singlesToZip = List(20) {
-            localDataSource.allNewsByFlowable().subscribeOn(Schedulers.io())
-        }
-        Flowable.zip(singlesToZip) { it.toList() }.blockingFirst()
+        repository.news.blockingFirst()
     }
 
     private fun clearAndInsertMovies(size: Int) {
