@@ -6,10 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.app.ichsanulalifwan.barani.benchmark.api.IntegrationBenchmark
 import com.app.ichsanulalifwan.barani.benchmark.rxjava.RxJavaBenchmark
 import com.app.ichsanulalifwan.barani.core.utils.toNewsEntity
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -21,31 +18,35 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
     override fun integration1() = benchmarkRule.measureRepeated {
         runWithTimingDisabled { localDataSource.deleteNewsAsCompletable().blockingAwait() }
         remoteDataSource.getTopHeadlines()
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMapCompletable { listResponse ->
-                repository.insertNewsToDatabase(
-                    listResponse.map { itemResponse ->
-                        itemResponse.toNewsEntity()
+            .flatMapCompletable {
+                repository.getEverythingNews(List(10) { "us" })
+                    .flatMapCompletable { listResponse ->
+                        repository.insertNewsToDatabase(
+                            listResponse.map { itemResponse ->
+                                itemResponse.toNewsEntity()
+                            }
+                        )
                     }
-                )
-            }
-            .blockingAwait()
+            }.blockingAwait()
     }
 
     @Test
     override fun integration2() = benchmarkRule.measureRepeated {
         runWithTimingDisabled { localDataSource.deleteNewsAsCompletable().blockingAwait() }
         remoteDataSource.getTopHeadlines()
-            .flatMap { remoteDataSource.getTopHeadlines() }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
+            .concatWith { remoteDataSource.getTopHeadlines() }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMapCompletable { listResponse ->
                 repository.insertNewsToDatabase(
                     listResponse.map { itemResponse ->
                         itemResponse.toNewsEntity()
                     }
+                ).andThen(
+                    repository.insertNewsToDatabase(listResponse.map { itemResponse ->
+                        itemResponse.toNewsEntity()
+                    })
                 )
-                    .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
             }.blockingAwait()
     }
 
@@ -55,15 +56,18 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
         remoteDataSource.getTopHeadlines()
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
+            .concatWith { remoteDataSource.getTopHeadlines() }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMapCompletable { listResponse ->
                 repository.insertNewsToDatabase(
                     listResponse.map { itemResponse ->
                         itemResponse.toNewsEntity()
                     }
                 )
+                    .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
                     .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
                     .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
                     .andThen(Completable.complete())
@@ -77,29 +81,28 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
-            .flatMap { repository.getEverythingNews(List(20) { "us" }) }
+            .flatMap { remoteDataSource.getTopHeadlines() }
+            .flatMap { remoteDataSource.getTopHeadlines() }
+            .flatMap { remoteDataSource.getTopHeadlines() }
+            .concatWith { remoteDataSource.getTopHeadlines() }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
+            .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMapCompletable { listResponse ->
                 repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() })
                     .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
                     .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
                     .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
+                    .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
+                    .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
+                    .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
+                    .andThen(repository.insertNewsToDatabase(listResponse.map { itemResponse -> itemResponse.toNewsEntity() }))
                     .andThen(Completable.complete())
             }.blockingAwait()
-    }
-
-    // TODO: Change Reactive naming
-    @Test
-    override fun integrationFlowable() = benchmarkRule.measureRepeated {
-
-        val flowable = Flowable.create({ emitter ->
-            emitter.onNext(remoteDataSource.getTopHeadlines().blockingGet())
-        }, BackpressureStrategy.LATEST)
-            .flatMapSingle { remoteDataSource.getNewsPublishers() }
-            .subscribeOn(Schedulers.io())
-
-        flowable.blockingFirst()
     }
 }

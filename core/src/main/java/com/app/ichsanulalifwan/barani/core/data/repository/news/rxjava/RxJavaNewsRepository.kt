@@ -7,9 +7,9 @@ import com.app.ichsanulalifwan.barani.core.data.source.remote.network.rxjava.RxJ
 import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesItemResponse
 import com.app.ichsanulalifwan.barani.core.utils.toNewsEntity
 import com.app.ichsanulalifwan.barani.core.utils.toPublisherEntity
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class RxJavaNewsRepository(
@@ -31,15 +31,27 @@ class RxJavaNewsRepository(
                 })
             }
 
-    fun getEverythingNews(countryCode: List<String>): Single<List<ArticlesItemResponse>> {
-        val singles = countryCode.map { code ->
-            remoteDataSource.getEverything(country = code)
-                .subscribeOn(Schedulers.io())
-                .map { response -> response.articles }
-                .onErrorReturnItem(emptyList())
-        }
+    fun getEverythingNews(countryCode: List<String>): Flowable<List<ArticlesItemResponse>> {
+        return Flowable.create({ emitter ->
+            val disposables = countryCode.map { code ->
+                remoteDataSource.getEverything(country = code)
+                    .subscribeOn(Schedulers.io())
+                    .map { response -> response.articles }
+                    .onErrorReturnItem(emptyList())
+                    .subscribe(
+                        { articles ->
+                            emitter.onNext(articles)
+                        },
+                        { error ->
+                            emitter.onError(error)
+                        }
+                    )
+            }
 
-        return Single.zip(singles) { it.flatMap { item -> item as List<ArticlesItemResponse> } }
+            emitter.setCancellable {
+                disposables.forEach { it.dispose() }
+            }
+        }, BackpressureStrategy.LATEST)
     }
 
     fun getNewsPublisher(): Completable =
