@@ -26,8 +26,6 @@ interface NewsDao {
     /**
      * Insert data.
      */
-
-    // TODO: Change naming Flowable in RxJava
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNews(newsEntities: List<NewsEntity>): Completable
 

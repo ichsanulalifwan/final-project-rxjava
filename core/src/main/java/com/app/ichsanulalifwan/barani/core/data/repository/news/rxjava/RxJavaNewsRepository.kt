@@ -7,9 +7,9 @@ import com.app.ichsanulalifwan.barani.core.data.source.remote.network.rxjava.RxJ
 import com.app.ichsanulalifwan.barani.core.data.source.remote.response.ArticlesItemResponse
 import com.app.ichsanulalifwan.barani.core.utils.toNewsEntity
 import com.app.ichsanulalifwan.barani.core.utils.toPublisherEntity
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class RxJavaNewsRepository(
@@ -31,27 +31,15 @@ class RxJavaNewsRepository(
                 })
             }
 
-    fun getEverythingNews(countryCode: List<String>): Flowable<List<ArticlesItemResponse>> {
-        return Flowable.create({ emitter ->
-            val disposables = countryCode.map { code ->
-                remoteDataSource.getEverything(country = code)
-                    .subscribeOn(Schedulers.io())
-                    .map { response -> response.articles }
-                    .onErrorReturnItem(emptyList())
-                    .subscribe(
-                        { articles ->
-                            emitter.onNext(articles)
-                        },
-                        { error ->
-                            emitter.onError(error)
-                        }
-                    )
-            }
+    fun getEverythingNews(countryCode: List<String>): Single<List<ArticlesItemResponse>> {
+        val singles = countryCode.map { code ->
+            remoteDataSource.getEverything(country = code)
+                .subscribeOn(Schedulers.io())
+                .map { response -> response.articles }
+                .onErrorReturnItem(emptyList())
+        }
 
-            emitter.setCancellable {
-                disposables.forEach { it.dispose() }
-            }
-        }, BackpressureStrategy.LATEST)
+        return Single.zip(singles) { it.toList() as List<ArticlesItemResponse> }
     }
 
     fun getNewsPublisher(): Completable =
@@ -63,15 +51,15 @@ class RxJavaNewsRepository(
             }
 
     fun insertNewsToDatabase(newsEntities: List<NewsEntity>): Completable =
-        localDataSource.deleteNewsAsCompletable()
+        localDataSource.deleteAllNews()
             .andThen(
-                localDataSource.insertNewsAsCompletable(newsEntities = newsEntities)
+                localDataSource.insertNews(newsEntities = newsEntities)
             ).subscribeOn(Schedulers.io())
 
-    fun insertPublisherToDatabase(publisherEntities: List<PublisherEntity>): Completable =
-        localDataSource.deletePublisherAsCompletable()
+    private fun insertPublisherToDatabase(publisherEntities: List<PublisherEntity>): Completable =
+        localDataSource.deleteAllPublishers()
             .andThen(
-                localDataSource.insertPublisherAsCompletable(publisherEntities = publisherEntities)
+                localDataSource.insertPublisher(publisherEntities = publisherEntities)
             ).subscribeOn(Schedulers.io())
 
     companion object {
