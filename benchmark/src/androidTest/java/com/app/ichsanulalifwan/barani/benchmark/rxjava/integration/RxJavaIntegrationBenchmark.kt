@@ -16,25 +16,25 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
 
     @Test
     override fun integration1() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled { localDataSource.deleteNewsAsCompletable().blockingAwait() }
+        runWithTimingDisabled { localDataSource.deleteAllNews().blockingAwait() }
         remoteDataSource.getTopHeadlines()
-            .flatMapCompletable {
+            .flatMap {
                 repository.getEverythingNews(List(10) { "us" })
-                    .flatMapCompletable { listResponse ->
-                        repository.insertNewsToDatabase(
-                            listResponse.map { itemResponse ->
-                                itemResponse.toNewsEntity()
-                            }
-                        )
+            }
+            .flatMapCompletable { listResponse ->
+                repository.insertNewsToDatabase(
+                    listResponse.map { itemResponse ->
+                        itemResponse.toNewsEntity()
                     }
+                )
             }.blockingAwait()
     }
 
     @Test
     override fun integration2() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled { localDataSource.deleteNewsAsCompletable().blockingAwait() }
+        runWithTimingDisabled { localDataSource.deleteAllNews().blockingAwait() }
         remoteDataSource.getTopHeadlines()
-            .concatWith { remoteDataSource.getTopHeadlines() }
+            .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMapCompletable { listResponse ->
@@ -52,11 +52,11 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
 
     @Test
     override fun integration3() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled { localDataSource.deleteNewsAsCompletable().blockingAwait() }
+        runWithTimingDisabled { localDataSource.deleteAllNews().blockingAwait() }
         remoteDataSource.getTopHeadlines()
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
-            .concatWith { remoteDataSource.getTopHeadlines() }
+            .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
@@ -76,7 +76,7 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
 
     @Test
     override fun integration4() = benchmarkRule.measureRepeated {
-        runWithTimingDisabled { localDataSource.deleteNewsAsCompletable().blockingAwait() }
+        runWithTimingDisabled { localDataSource.deleteAllNews().blockingAwait() }
         remoteDataSource.getTopHeadlines()
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
@@ -84,7 +84,7 @@ class RxJavaIntegrationBenchmark : RxJavaBenchmark(), IntegrationBenchmark {
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { remoteDataSource.getTopHeadlines() }
-            .concatWith { remoteDataSource.getTopHeadlines() }
+            .flatMap { remoteDataSource.getTopHeadlines() }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
             .flatMap { repository.getEverythingNews(List(10) { "us" }) }
