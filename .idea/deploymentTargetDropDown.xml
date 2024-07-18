@@ -11,12 +11,6 @@
       <entry key="Project.FinalProjectRxJava.app">
         <State />
       </entry>
-      <entry key="RxJavaDatabaseBenchmark">
-        <State />
-      </entry>
-      <entry key="RxJavaIntegrationBenchmark">
-        <State />
-      </entry>
       <entry key="RxJavaNetworkBenchmark">
         <State />
       </entry>
@@ -30,6 +24,9 @@
         <State />
       </entry>
       <entry key="fetchNewsSingleRequest()">
+        <State />
+      </entry>
+      <entry key="fetchTenNews()">
         <State />
       </entry>
     </value>

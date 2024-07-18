@@ -39,7 +39,7 @@ class RxJavaNewsRepository(
                 .onErrorReturnItem(emptyList())
         }
 
-        return Single.zip(singles) { it.toList() as List<ArticlesItemResponse> }
+        return Single.concat(singles).toList().map { list -> list.flatten() }
     }
 
     fun getNewsPublisher(): Completable =

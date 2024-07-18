@@ -24,11 +24,19 @@ class ViewModelFactory private constructor(
         return when {
 
             modelClass.isAssignableFrom(BerandaViewModel::class.java) -> {
-                BerandaViewModel(application, rxJavaNewsRepository) as T
+                BerandaViewModel(
+                    application,
+                    rxJavaNewsRepository = rxJavaNewsRepository,
+                    addressRepository = addressRepository,
+                ) as T
             }
 
             modelClass.isAssignableFrom(ListViewModel::class.java) -> {
-                ListViewModel(application, rxJavaNewsRepository) as T
+                ListViewModel(
+                    application,
+                    rxJavaNewsRepository = rxJavaNewsRepository,
+                    addressRepository = addressRepository,
+                ) as T
             }
 
             modelClass.isAssignableFrom(ProfilViewModel::class.java) -> {
