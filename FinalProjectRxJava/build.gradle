@@ -1,0 +1,87 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
+    ext {
+        //dependencies version
+
+        // APIs
+        core_version = '1.9.0'
+
+        // UI
+        appcompat_version = '1.6.1'
+        material_version = '1.8.0'
+        constraintlayout_version = '2.1.4'
+        recyclerview_version = '1.2.1'
+        glide_version = '4.13.1'
+        circleimageview_version = '3.1.0'
+        shimmer_version = '0.5.0'
+
+        firebase_bom_version = '28.2.0'
+
+        // ViewPager
+        viewpager2_version = '1.0.0'
+
+        // ViewModel and LiveData
+        lifecycle_version = '2.4.0'
+
+        // Navigation
+        navigation_version = '2.5.3'
+
+        // Networking
+        retrofit2_version = '2.9.0'
+        okhttp3_version = '4.9.2'
+
+        // Room
+        room_version = '2.5.0'
+
+        // Camera
+        imagepicker_version = '2.1'
+
+        // Google Play services library
+        gms_auth_version = '20.7.0'
+        gms_location_version = '21.0.1'
+
+        // Benchmark
+        benchmark_version = '1.2.3'
+
+        // Sonarqube
+        sonaqube_version = '3.2.0'
+
+        // RxJava
+        rxjava_version = '2.2.21'
+        rxandroid_version = '2.1.1'
+        reactivestreams_version = '2.6.2'
+
+        // testing
+        androidx_test_version = '1.5.2'
+        junit_version = '4.13.2'
+        junit_ext_version = '1.1.5'
+        espresso_version = '3.5.1'
+    }
+
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
+        classpath 'com.google.gms:google-services:4.4.0'
+
+        // Sonarqube
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$sonaqube_version"
+
+        classpath 'com.github.arkni:json-to-csv:-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
+    id 'com.android.test' version '7.4.2' apply false
+    id 'androidx.benchmark' version '1.2.3' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

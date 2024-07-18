@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.beranda.BerandaFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ic_category"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_category"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/kota"
+            android:textColor="@color/black_700"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ic_category"
+            app:layout_constraintLeft_toRightOf="@id/ic_category"
+            app:layout_constraintRight_toLeftOf="@id/ic_search"
+            app:layout_constraintTop_toTopOf="@id/ic_category" />
+
+        <ImageView
+            android:id="@+id/ic_search"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_searching"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_item_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_location">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/info_slider"
+                tools:ignore="ContentDescription" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_news_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/news_header"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/cv_item_info" />
+
+        <TextView
+            android:id="@+id/text_all_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/poppins"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/lainnya"
+            android:textColor="@color/red_app"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/cv_item_info"
+            app:layout_constraintTop_toTopOf="@id/tv_news_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_news"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/tv_news_header"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_news" />
+
+        <TextView
+            android:id="@+id/tv_kkn_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/kegiatan_kelurahan"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/rv_news" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_kkn_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="@id/cv_item_info"
+            app:layout_constraintStart_toStartOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/tv_kkn_header"
+            tools:listitem="@layout/item_kkn" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_kkn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="@string/btn_text"
+            android:textAllCaps="false"
+            android:textColor="@color/red_app"
+            android:textSize="12sp"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cv_item_info"
+            app:layout_constraintStart_toStartOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/rv_kkn_report"
+            app:strokeColor="@color/red_app"
+            app:strokeWidth="1dp" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/home_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@id/cv_item_info"
+            app:layout_constraintTop_toBottomOf="@id/cv_item_info">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="NestedScrolling">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_news_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/kegiatan_kelurahan"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_all_news_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/lainnya"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_news_placeholder"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_news_placeholder" />
+
+                    <LinearLayout
+                        android:id="@+id/linear"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_news_placeholder">
+
+                        <include layout="@layout/item_news_placeholder" />
+
+                        <include layout="@layout/item_news_placeholder" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_kkn_placeholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/shape_rectangle_grey"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/kegiatan_kelurahan"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#00000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear" />
+
+                    <LinearLayout
+                        android:id="@+id/linear2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_kkn_placeholder">
+
+                        <include layout="@layout/item_list_placeholder" />
+
+                        <include layout="@layout/item_list_placeholder" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

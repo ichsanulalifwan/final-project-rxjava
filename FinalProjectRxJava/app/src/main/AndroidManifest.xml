@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.app.ichsanulalifwan.barani">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FinalProject"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <profileable
+            android:shell="true"
+            tools:targetApi="29" />
+
+        <activity
+            android:name="com.app.ichsanulalifwan.barani.ui.splashscreen.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.app.ichsanulalifwan.barani.ui.signup.SignUpActivity" />
+        <activity android:name="com.app.ichsanulalifwan.barani.ui.signin.SignInActivity" />
+        <activity android:name="com.app.ichsanulalifwan.barani.ui.detail.DetailActivity" />
+        <activity android:name="com.app.ichsanulalifwan.barani.ui.report.ReportActivity" />
+        <activity
+            android:name="com.app.ichsanulalifwan.barani.ui.MainActivity"
+            android:label="@string/app_name" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
